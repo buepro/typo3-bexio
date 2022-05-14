@@ -37,10 +37,10 @@ Usage
 
 Following these steps to use the client:
 
-#. Carry out the setup as outlined in the administration manual
+#. Carry out the setup as outlined in the :ref:`administration manual <admin>`
 
-#. Authenticate the usage by loading the url
-   `[https://domain.ch]/bexio-auth-[url segment challenge]`
+#. Authenticate the usage by loading the authentication url
+   (`https://your-domain.ch/bexio-auth-your_challange`). You will be redirected to the bexio authentication server.
 
 #. Get a client from the ApiService
 
@@ -48,14 +48,18 @@ Following these steps to use the client:
 
       use Buepro\Bexio\Service\ApiService;
 
+      // Get the ApiService with the GeneralUtility or by dependency injection
       $apiService = GeneralUtility::makeInstance(ApiService::class);
+      // Initialize the service with the request and get a client
       $client = $apiService->initialize($serverRequest)->getClient();
+      // Load the tokens obtained by the Bexio authentication server
       $client->loadTokens($apiService->getTokensFile());
 
 #. Use the client
 
    .. code-block:: php
 
+      // @link https://github.com/onlime/bexio-api-client/tree/main/src/Bexio/Resource
       use Bexio\Resource\Contact
 
       $bexioContact = new Contact($client);
@@ -65,3 +69,12 @@ Prerequisites
 =============
 
 This extension requires a composer based installation.
+
+Credits
+=======
+
+-  This extension has been started by
+   `Philipp Müller from lavitto.ch <https://www.lavitto.ch/>`__
+-  It uses the package
+   `onlime/bexio-api-client <https://github.com/onlime/bexio-api-client>`__
+   from `Philip Iezzi <https://www.onlime.ch/>`__
