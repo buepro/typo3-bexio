@@ -34,4 +34,6 @@ Bexio
 .. toctree::
    :maxdepth: 2
 
+   Introduction/Index
+   Administration/Index
    Develop/Index

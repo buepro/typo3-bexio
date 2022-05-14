@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Buepro\Bexio\:
+    resource: '../Classes/*'
+
+  Buepro\Bexio\Controller\AuthController:
+    public: true
+
+  Buepro\Bexio\Service\ApiService:
+    public: true

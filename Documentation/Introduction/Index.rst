@@ -1,3 +1,5 @@
+.. include:: /Includes.rst.txt
+
 .. image:: https://poser.pugx.org/buepro/typo3-bexio/v/stable.svg
    :alt: Latest Stable Version
    :target: https://extensions.typo3.org/extension/bexio/
@@ -20,17 +22,13 @@
 
 .. _introduction:
 
-=========================
-TYPO3 extension ``bexio``
-=========================
+============
+Introduction
+============
 
 This extension provides a client for the `Bexio API <https://docs.bexio.com/>`__
 by extending the client from the package
 `onlime/bexio-api-client <https://github.com/onlime/bexio-api-client>`__.
-
-:Repository:  https://github.com/buepro/typo3-bexio
-:Read online: https://docs.typo3.org/p/buepro/typo3-bexio/main/en-us/
-:TER:         https://extensions.typo3.org/extension/bexio
 
 Usage
 =====

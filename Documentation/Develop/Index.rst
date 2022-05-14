@@ -12,7 +12,6 @@ Site
 ====
 
 -  Create `Build/site/bexio/private.yaml` with bexio related properties
--  Create the key files in `Build/site/bexio`
 
 Logging
 =======
@@ -32,20 +31,12 @@ Logging
        ],
    ];
 
-
-Various
-=======
-
--  Expose dev server: `ddev share`
-
 References
 ==========
 
 Bexio API References
 --------------------
 
-
-PHP References
---------------
+-  `Github Bexio API PHP Client <https://github.com/onlime/bexio-api-client>`__
 
 

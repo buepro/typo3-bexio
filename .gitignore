@@ -2,6 +2,7 @@
 .build/
 .idea/
 Documentation-GENERATED-temp/
+Build/site/bexio/
 
 # Files
 *.cache

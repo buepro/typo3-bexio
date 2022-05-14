@@ -1,6 +1,6 @@
 {
 	"name": "buepro/typo3-bexio",
-	"description": "Service extension for the bexio API.",
+	"description": "Provides a client for the Bexio API by extending the client from the package onlime/bexio-api-client",
 	"license": "GPL-2.0-or-later",
 	"type": "typo3-cms-extension",
 	"keywords": [
@@ -24,7 +24,8 @@
 		"docs": "https://docs.typo3.org/p/buepro/typo3-bexio/main/en-us/"
 	},
 	"require": {
-		"php": ">=7.4.0",
+		"php": ">=8.0.0",
+		"onlime/bexio-api-client": "0.4.1",
 		"typo3/cms-core": "^v11.5.9"
 	},
 	"require-dev": {
@@ -71,6 +72,7 @@
 		"post-autoload-dump": [
 			"mkdir -p .build/public/typo3conf/ext/",
 			"[ -L .build/public/typo3conf/ext/bexio ] || ln -snvf ../../../../. .build/public/typo3conf/ext/bexio",
+			"mkdir -p .build/config/sites/default/bexio",
 			"[ -L .build/config/sites/default/config.yaml ] || ln -svf ../../../../Build/site/config.yaml .build/config/sites/default/config.yaml",
 			"[ -L .build/config/sites/default/bexio ] || ln -svf ../../../../Build/site/bexio .build/config/sites/default/bexio",
 			"@typo3-cms-scripts"

@@ -1,4 +1,0 @@
-baseVariants:
-  -
-    base: 'https://989b-86-114-186-155.eu.ngrok.io/'
-    condition: 'getenv("HTTP_HOST") == "989b-86-114-186-155.eu.ngrok.io"'
