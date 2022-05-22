@@ -50,8 +50,8 @@ Following these steps to use the client:
 
       // Get the ApiService with the GeneralUtility or by dependency injection
       $apiService = GeneralUtility::makeInstance(ApiService::class);
-      // Initialize the service with the request and get the client
-      $client = $apiService->initialize($serverRequest)->getClient();
+      // Initialize the service for a site and get the client
+      $client = $apiService->initialize($site)->getClient();
       // Or get the client from an already initialized service
       $clientInOtherScope = (GeneralUtility::makeInstance(ApiService::class))->getClient();
 

@@ -11,11 +11,11 @@ declare(strict_types=1);
 
 namespace Buepro\Bexio\Controller;
 
-use Buepro\Bexio\Api\Client;
 use Buepro\Bexio\Service\ApiService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\ResponseFactory;
+use TYPO3\CMS\Core\Site\Entity\Site;
 
 class AuthController
 {
@@ -30,12 +30,12 @@ class AuthController
 
     public function authenticate(ServerRequestInterface $request): ResponseInterface
     {
-        $client = $this->apiService->initialize($request)->getClient();
         if (
-            $client instanceof Client &&
+            ($site = $request->getAttribute('site')) instanceof Site &&
+            ($client = $this->apiService->initialize($site)->getClient()) !== null &&
             ($tokensFile = $this->apiService->getTokensFile()) !== null
         ) {
-            $client->authenticate($this->apiService->getScopes(), $this->apiService->getRedirectUrl());
+            $client->authenticate($this->apiService->getScopes(), $this->apiService->getRedirectUrl($request));
             $client->persistTokens($tokensFile);
             return $this->getResponse('You have been authenticated and can now use the services.');
         }

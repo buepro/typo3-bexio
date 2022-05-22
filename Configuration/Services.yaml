@@ -12,3 +12,9 @@ services:
 
   Buepro\Bexio\Service\ApiService:
     public: true
+
+  Buepro\Bexio\Command\UpdateUsers:
+    tags:
+      -
+        name: 'console.command'
+        command: 'bexio:updateusers'

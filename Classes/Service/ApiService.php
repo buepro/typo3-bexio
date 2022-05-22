@@ -19,29 +19,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ApiService
 {
-    protected ?ServerRequestInterface $request = null;
+    protected ?Site $site = null;
     protected ?Client $client = null;
 
-    public function initialize(ServerRequestInterface $request): self
+    public function initialize(Site $site): self
     {
-        $this->request = $request;
+        $this->site = $site;
+        $this->client = null;
         return $this;
-    }
-
-    public function getRequest(): ?ServerRequestInterface
-    {
-        return $this->request;
     }
 
     public function getSite(): ?Site
     {
-        if (
-            ($request = $this->getRequest()) !== null &&
-            ($site = $request->getAttribute('site')) instanceof Site
-        ) {
-            return $site;
-        }
-        return null;
+        return $this->site;
     }
 
     public function getTokensFile(): ?string
@@ -73,10 +63,9 @@ class ApiService
         return [];
     }
 
-    public function getRedirectUrl(): string
+    public function getRedirectUrl(ServerRequestInterface $request): string
     {
         if (
-            ($request = $this->getRequest()) !== null &&
             ($conf = $this->getConfiguration()) !== null &&
             ($authUrlSegmentChallenge = $conf['authUrlSegmentChallenge'] ?? '') !== ''
         ) {
