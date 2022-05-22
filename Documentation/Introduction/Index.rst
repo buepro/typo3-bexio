@@ -38,7 +38,9 @@ Following these steps to use the client:
 #. Carry out the setup as outlined in the :ref:`administration manual <admin>`
 
 #. Authenticate the usage by loading the authentication url
-   (`https://your-domain.ch/bexio-auth-your_challange`). You will be redirected to the bexio authentication server.
+   (`https://your-domain.ch/bexio-auth-your_challange`). You will be redirected
+   to the bexio authentication server. Upon successful authentication a tokens
+   file will be obtained.
 
 #. Get a client from the ApiService
 
@@ -48,10 +50,10 @@ Following these steps to use the client:
 
       // Get the ApiService with the GeneralUtility or by dependency injection
       $apiService = GeneralUtility::makeInstance(ApiService::class);
-      // Initialize the service with the request and get a client
+      // Initialize the service with the request and get the client
       $client = $apiService->initialize($serverRequest)->getClient();
-      // Load the tokens obtained by the Bexio authentication server
-      $client->loadTokens($apiService->getTokensFile());
+      // Or get the client from an already initialized service
+      $clientInOtherScope = (GeneralUtility::makeInstance(ApiService::class))->getClient();
 
 #. Use the client
 

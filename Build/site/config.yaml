@@ -14,7 +14,7 @@ languages:
     flag: gb
     websiteTitle: ''
 rootPageId: 1
-websiteTitle: 'Wise dev site'
-
+websiteTitle: ''
 imports:
-  - { resource: './bexio/private.yaml' }
+  -
+    resource: ./bexio/private.yaml

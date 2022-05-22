@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ApiService
 {
     protected ?ServerRequestInterface $request = null;
+    protected ?Client $client = null;
 
     public function initialize(ServerRequestInterface $request): self
     {
@@ -87,12 +88,19 @@ class ApiService
 
     public function getClient(): ?Client
     {
+        if ($this->client !== null) {
+            return $this->client;
+        }
         if (
             ($conf = $this->getConfiguration()) !== null &&
             ($clientId = $conf['clientId'] ?? '') !== '' &&
             ($clientSecret = $conf['clientSecret'] ?? '') !== ''
         ) {
-            return new Client($clientId, $clientSecret);
+            $this->client = new Client($clientId, $clientSecret);
+            if (($tokensFile = $this->getTokensFile()) !== null) {
+                $this->client->loadTokens($tokensFile);
+            }
+            return $this->client;
         }
         return null;
     }
