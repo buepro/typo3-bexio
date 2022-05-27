@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UpdateUserService
 {
+    protected array $options;
     /** @var int[] */
     protected array $storageUids = [0];
     protected string $userGroupUids = '';
@@ -28,8 +29,9 @@ class UpdateUserService
     protected int $updatedCount = 0;
     protected int $newCount = 0;
 
-    public function __construct(Site $site)
+    public function __construct(Site $site, array $options)
     {
+        $this->options = $options;
         $config = $site->getConfiguration()['bexio'] ?? [];
         $storageUid = (string)($config['storageUid'] ?? '0');
         $this->storageUids = GeneralUtility::intExplode(',', $storageUid, true);
@@ -44,16 +46,20 @@ class UpdateUserService
         $this->connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('fe_users');
     }
 
-    public function processContactDto(ContactDto $dto, array $options): void
+    public function processContactDto(ContactDto $dto): void
     {
         if (
             ($user = $this->getUserForDto($dto)) !== null &&
-            ((int)$user['tx_bexio_id'] > 0 || $options[UpdateUsers::OPTION_LINK] || $options[UpdateUsers::OPTION_CREATE])
+            (
+                (int)$user['tx_bexio_id'] > 0 ||
+                $this->options[UpdateUsers::OPTION_LINK] ||
+                $this->options[UpdateUsers::OPTION_CREATE]
+            )
         ) {
-            $this->updateUser($user, $dto, $options);
+            $this->updateUser($user, $dto);
             return;
         }
-        if ($options[UpdateUsers::OPTION_CREATE]) {
+        if ($this->options[UpdateUsers::OPTION_CREATE]) {
             $this->createUser($dto);
         }
     }
@@ -107,9 +113,9 @@ class UpdateUserService
         return null;
     }
 
-    protected function updateUser(array $user, ContactDto $dto, array $options): void
+    protected function updateUser(array $user, ContactDto $dto): void
     {
-        if (($data = $dto->getUpdateData($user, $options[UpdateUsers::OPTION_OVERWRITE])) === []) {
+        if (($data = $dto->getUpdateData($user, $this->options[UpdateUsers::OPTION_OVERWRITE])) === []) {
             return;
         }
         $this->updatedCount += $this->connection->update(

@@ -13,4 +13,4 @@ Tasks
    :caption: Update frontend users
 
    // use Buepro\Bexio\Task\UpdateUsers;
-   $statistics = (new UpdateUsers($site))->process($options);
+   $result = (new UpdateUsers($site))->initialize($options)->process();

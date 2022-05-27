@@ -77,7 +77,7 @@ be updated. Without this option all sites are included.'
 
         foreach ($sites as $site) {
             try {
-                $statistics = (new UpdateUsersTask($site))->process($options);
+                $statistics = (new UpdateUsersTask($site))->initialize($options)->process();
                 $io->writeln(sprintf(
                     '- Site "%s": %d updated, %d new',
                     $site->getIdentifier(),

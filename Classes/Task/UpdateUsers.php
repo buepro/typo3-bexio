@@ -14,10 +14,9 @@ use Bexio\Resource\Other;
 use Buepro\Bexio\Dto\ContactDto;
 use Buepro\Bexio\Service\ApiService;
 use Buepro\Bexio\Service\UpdateUserService;
-use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class UpdateUsers
+class UpdateUsers extends AbstractTask implements TaskInterface
 {
     public const OPTION_CREATE = 'create';
     public const OPTION_LINK = 'link';
@@ -38,14 +37,15 @@ class UpdateUsers
     public const RELATED_CONTACT_COMPANY = 'company';
     public const RELATED_CONTACT_PERSON = 'person';
 
-    protected Site $site;
+    protected array $options = self::DEFAULT_OPTIONS;
 
-    public function __construct(Site $site)
+    public function initialize(array $options = self::DEFAULT_OPTIONS): TaskInterface
     {
-        $this->site = $site;
+        $this->options = $options;
+        return $this;
     }
 
-    public function process(array $options = self::DEFAULT_OPTIONS): array
+    public function process(): array
     {
         $client = (GeneralUtility::makeInstance(ApiService::class))->initialize($this->site)->getClient();
         $contactResource = new Contact($client);
@@ -60,7 +60,7 @@ class UpdateUsers
             $countryNames[$country->id] = $country->name;
         }
         $bookkeepingContacts = $this->compileBookkeepingContacts($contacts, $relations, $countryNames);
-        return $this->updateFrontendUsers($bookkeepingContacts, $options);
+        return $this->updateFrontendUsers($bookkeepingContacts);
     }
 
     /**
@@ -103,11 +103,11 @@ class UpdateUsers
      * @param ContactDto[] $contactDtos
      * @return array Statistics with keys from self::DEFAULT_STATISTICS
      */
-    protected function updateFrontendUsers(array $contactDtos, array $options): array
+    protected function updateFrontendUsers(array $contactDtos): array
     {
-        $updateUserService = new UpdateUserService($this->site);
+        $updateUserService = new UpdateUserService($this->site, $this->options);
         foreach ($contactDtos as $contactDto) {
-            $updateUserService->processContactDto($contactDto, $options);
+            $updateUserService->processContactDto($contactDto);
         }
         return $updateUserService->getStatistics();
     }
