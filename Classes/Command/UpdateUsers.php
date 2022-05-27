@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Buepro\Bexio\Command;
 
+use Buepro\Bexio\Task\UpdateUsers as UpdateUsersTask;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -26,7 +27,29 @@ class UpdateUsers extends Command
     {
         $this
             ->setDescription(
-                'Update users with data from bexio customers.'
+                'Update users with data from bexio contacts. Just empty fields from already
+linked users will be updated.'
+            )
+            ->addOption(
+                'create',
+                'c',
+                InputOption::VALUE_NONE,
+                'Create new users for bexio contacts that can not
+be linked to any existing frontent user.'
+            )
+            ->addOption(
+                'link',
+                'l',
+                InputOption::VALUE_NONE,
+                'Link bexio contacts to frontend user by matching
+properties.'
+            )
+            ->addOption(
+                'overwrite',
+                'o',
+                InputOption::VALUE_NONE,
+                'Overwrite all field values with the ones from the
+linked bexio contact.'
             )
             ->addOption(
                 'site',
@@ -46,8 +69,29 @@ be updated. Without this option all sites are included.'
             return Command::INVALID;
         }
 
+        $options = [
+            UpdateUsersTask::OPTION_CREATE => (bool)$input->getOption('create'),
+            UpdateUsersTask::OPTION_LINK => (bool)$input->getOption('link'),
+            UpdateUsersTask::OPTION_OVERWRITE => (bool)$input->getOption('overwrite'),
+        ];
+
         foreach ($sites as $site) {
-            // business logic
+            try {
+                $statistics = (new UpdateUsersTask($site))->process($options);
+                $io->writeln(sprintf(
+                    '- Site "%s": %d updated, %d new',
+                    $site->getIdentifier(),
+                    $statistics[UpdateUsersTask::STATISTICS_UPDATED],
+                    $statistics[UpdateUsersTask::STATISTICS_NEW]
+                ));
+            } catch (\Exception $e) {
+                $io->writeln(sprintf(
+                    '- Site "%s": %s (error code %d)',
+                    $site->getIdentifier(),
+                    $e->getMessage(),
+                    $e->getCode()
+                ));
+            }
         }
 
         return Command::SUCCESS;

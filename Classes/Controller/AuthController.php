@@ -32,9 +32,9 @@ class AuthController
     {
         if (
             ($site = $request->getAttribute('site')) instanceof Site &&
-            ($client = $this->apiService->initialize($site)->getClient()) !== null &&
-            ($tokensFile = $this->apiService->getTokensFile()) !== null
+            ($tokensFile = $this->apiService->initialize($site)->getTokensFile()) !== null
         ) {
+            $client = $this->apiService->getClient();
             $client->authenticate($this->apiService->getScopes(), $this->apiService->getRedirectUrl($request));
             $client->persistTokens($tokensFile);
             return $this->getResponse('You have been authenticated and can now use the services.');

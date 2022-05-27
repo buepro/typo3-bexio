@@ -75,7 +75,7 @@ class ApiService
         return '';
     }
 
-    public function getClient(): ?Client
+    public function getClient(): Client
     {
         if ($this->client !== null) {
             return $this->client;
@@ -91,6 +91,6 @@ class ApiService
             }
             return $this->client;
         }
-        return null;
+        throw new \DomainException('No client obtained. Please check the configuration.', 1653555488);
     }
 }

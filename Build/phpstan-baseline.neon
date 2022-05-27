@@ -1,0 +1,16 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\)\\.$#"
+			count: 3
+			path: ../Classes/Dto/ContactDto.php
+
+		-
+			message: "#^Variable property access on Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\.$#"
+			count: 1
+			path: ../Classes/Dto/ContactDto.php
+
+		-
+			message: "#^Variable method call on Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\.$#"
+			count: 1
+			path: ../Classes/Service/UpdateUserService.php

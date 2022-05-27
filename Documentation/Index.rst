@@ -28,6 +28,7 @@ Bexio
 :Rendered:
    |today|
 
+----
 
 **Table of Contents**
 
@@ -36,4 +37,6 @@ Bexio
 
    Introduction/Index
    Administration/Index
+   User/Index
+   Api/Index
    Develop/Index
