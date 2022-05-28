@@ -18,3 +18,9 @@ services:
       -
         name: 'console.command'
         command: 'bexio:updateusers'
+
+  Buepro\Bexio\Command\Query:
+    tags:
+      -
+        name: 'console.command'
+        command: 'bexio:query'

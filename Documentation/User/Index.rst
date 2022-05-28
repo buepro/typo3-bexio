@@ -24,7 +24,35 @@ Console
 
    Use the `-h` option to show details for a command
 
+Query
+-----
+
+.. note::
+
+   When using the option `-a` you will be asked to provide the arguments for the
+   method call. Separate each argument by a line. Each argument will be json
+   decoded.
+
 .. code-block:: shell
-   :caption: Update frontend users
+   :caption: Send an invoice with the arguments below
+
+   path/to/bin/typo3 bexio:query -a default invoice sendInvoice
+
+.. code-block:: json
+   :caption: Json encoded arguments to send the invoice 137 to somebody@ik.me
+
+   137
+   {"recipient_email": "somebody@ik.me", "subject": "Invoice from command", "message": "Here it is: [Network Link]", "mark_as_open": false}
+
+.. code-block:: shell
+   :caption: Get all available languages
+
+   path/to/bin/typo3 bexio:query default other getLanguages
+
+Update users
+------------
+
+.. code-block:: shell
+   :caption: Update all frontend users that are already linked to a bexio contact
 
    path/to/bin/typo3 bexio:updateusers
