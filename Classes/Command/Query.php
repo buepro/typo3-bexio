@@ -20,7 +20,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -71,15 +70,7 @@ Without this option no arguments will be passed to the method.'
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $helper = $this->getHelper('question');
-        $question = new Question("Arguments (one per line, continue with Ctrl-D on Linux, Ctrl-Z on Windows):\n");
-        $question->setMultiline(true);
-        $args = [];
-        if ($input->getOption('with-arguments') !== false) {
-            $args = $helper->ask($input, $output, $question);
-            $args = GeneralUtility::trimExplode("\n", $args, true);
-            $args = array_map(static fn ($arg) => \json_decode($arg, true), $args);
-        }
+        $methodArguments = $this->getMethodArguments($input, $output);
         $io->writeln("\nQuerying the endpoint...");
         try {
             $site = GeneralUtility::makeInstance(SiteFinder::class)
@@ -87,22 +78,15 @@ Without this option no arguments will be passed to the method.'
             $client = GeneralUtility::makeInstance(ApiService::class)->initialize($site)->getClient();
             $resourceClass = '\\Bexio\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
             $method = (string)$input->getArgument('method');
-            $result = (new $resourceClass($client))->$method(...$args);
+            $result = (new $resourceClass($client))->$method(...$methodArguments);
             if (
                 $input->getOption('raw') === false &&
                 ($result = json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT)) === false
             ) {
                 throw new \DomainException('Bexio api response could not be json encoded.', 1653727802);
             }
-            if (($file = $input->getOption('file')) !== false) {
-                if (
-                    $result instanceof \stdClass &&
-                    property_exists($result, 'mime') && $result->mime === 'application/pdf' &&
-                    property_exists($result, 'content')
-                ) {
-                    $result = base64_decode($result->content);
-                }
-                file_put_contents($file, $result);
+            if (($file = $input->getOption('file')) !== null) {
+                $this->writeResultToFile($result, $file);
                 $io->writeln('Response written to file "' . $file . '"');
                 return Command::SUCCESS;
             }
@@ -117,25 +101,29 @@ Without this option no arguments will be passed to the method.'
         }
     }
 
-    /** @return ?Site[] */
-    protected function getSites(InputInterface $input, SymfonyStyle $io): ?array
+    protected function getMethodArguments(InputInterface $input, OutputInterface $output): array
     {
-        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-        $sites = $siteFinder->getAllSites();
-        if (count($sites) === 0) {
-            $io->writeln('<error>No site available.</error>');
-            return null;
+        $args = [];
+        if ($input->getOption('with-arguments') !== false) {
+            $helper = $this->getHelper('question');
+            $question = new Question("Arguments (one per line, continue with Ctrl-D on Linux, Ctrl-Z on Windows):\n");
+            $question->setMultiline(true);
+            $args = $helper->ask($input, $output, $question);
+            $args = GeneralUtility::trimExplode("\n", $args, true);
+            $args = array_map(static fn ($arg) => \json_decode($arg, true), $args);
         }
-        if (($siteOption = $input->getOption('site')) !== null) {
-            $sites = [];
-            try {
-                $site = $siteFinder->getSiteByIdentifier($siteOption);
-                $sites[] = $site;
-            } catch (\Exception $e) {
-                $io->writeln('<error>The site "' . $siteOption . '" is not available.</error>');
-                return null;
-            }
+        return $args;
+    }
+
+    protected function writeResultToFile(mixed $result, string $file): void
+    {
+        if (
+            $result instanceof \stdClass &&
+            property_exists($result, 'mime') && $result->mime === 'application/pdf' &&
+            property_exists($result, 'content')
+        ) {
+            $result = base64_decode($result->content, true);
         }
-        return $sites;
+        file_put_contents($file, $result);
     }
 }
