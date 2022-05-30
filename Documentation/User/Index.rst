@@ -45,6 +45,11 @@ Query
    {"recipient_email": "somebody@ik.me", "subject": "Invoice from command", "message": "Here it is: [Network Link]", "mark_as_open": false}
 
 .. code-block:: shell
+   :caption: Get invoice and save it as test.pdf
+
+   path/to/bin/typo3 bexio:query -a -f test.pdf -r default invoice getPdf
+
+.. code-block:: shell
    :caption: Get all available languages
 
    path/to/bin/typo3 bexio:query default other getLanguages

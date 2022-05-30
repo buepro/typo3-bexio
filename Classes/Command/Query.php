@@ -39,6 +39,18 @@ class Query extends Command
                 'Set this option to provide arguments after entering the command.
 Without this option no arguments will be passed to the method.'
             )
+            ->addOption(
+                'file',
+                'f',
+                InputOption::VALUE_REQUIRED,
+                'Write the result to the file specified by this option.'
+            )
+            ->addOption(
+                'raw',
+                'r',
+                InputOption::VALUE_NONE,
+                'Get raw response. No json encoding takes place.'
+            )
             ->addArgument(
                 'site',
                 InputArgument::REQUIRED,
@@ -76,8 +88,23 @@ Without this option no arguments will be passed to the method.'
             $resourceClass = '\\Bexio\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
             $method = (string)$input->getArgument('method');
             $result = (new $resourceClass($client))->$method(...$args);
-            if (($result = json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT)) === false) {
+            if (
+                $input->getOption('raw') === false &&
+                ($result = json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT)) === false
+            ) {
                 throw new \DomainException('Bexio api response could not be json encoded.', 1653727802);
+            }
+            if (($file = $input->getOption('file')) !== false) {
+                if (
+                    $result instanceof \stdClass &&
+                    property_exists($result, 'mime') && $result->mime === 'application/pdf' &&
+                    property_exists($result, 'content')
+                ) {
+                    $result = base64_decode($result->content);
+                }
+                file_put_contents($file, $result);
+                $io->writeln('Response written to file "' . $file . '"');
+                return Command::SUCCESS;
             }
             $io->writeln('Response:');
             /** @var FormatterHelper $formatter */
