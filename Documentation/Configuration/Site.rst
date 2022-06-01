@@ -46,7 +46,7 @@ Authentication
      clientSecret: aaaaaaaaaaaaaaaaaaaa-aaaaa-aaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
      scopes: ['openid', 'profile', 'contact_edit', 'offline_access', 'kb_invoice_edit', 'bank_payment_edit']
 
-.. index:: Authentication; authUrlSegmentChallenge
+.. index:: Site config - Authentication; authUrlSegmentChallenge
 .. _config-site-authUrlSegmentChallenge:
 
 authUrlSegmentChallenge
@@ -65,7 +65,7 @@ authUrlSegmentChallenge
       challenge abuses. For security reasons prefer something cryptic like
       `wdoufkyrkLoqaarxxvmdxyyj`.
 
-.. index:: Authentication; clientId
+.. index:: Site config - Authentication; clientId
 .. _config-site-clientId:
 
 clientId
@@ -83,7 +83,7 @@ clientId
       The client ID provided by the bexio web site (see
       :ref:`Admin - Bexio <config-bexio>`)
 
-.. index:: Authentication; clientSecret
+.. index:: Site config - Authentication; clientSecret
 .. _config-site-clientSecret:
 
 clientSecret
@@ -101,7 +101,7 @@ clientSecret
       The client secret provided by the bexio web site (see
       :ref:`Admin - Bexio <config-bexio>`)
 
-.. index:: Authentication; scopes
+.. index:: Site config - Authentication; scopes
 .. _config-site-scopes:
 
 scopes
@@ -131,7 +131,7 @@ User
      userGroupUid = 1
      linkMatchProperties = firstName, lastName, email
 
-.. index:: User; storageUid
+.. index:: Site config - User; storageUid
 .. _config-site-storageUid:
 
 storageUid
@@ -149,7 +149,7 @@ storageUid
       Coma separated list of uid's from pages where frontend users are located.
       The first item is used to store new records.
 
-.. index:: User; userGroupUid
+.. index:: Site config - User; userGroupUid
 .. _config-site-userGroupUid:
 
 userGroupUid
@@ -167,7 +167,7 @@ userGroupUid
       Coma separated list from user group uid's that should be assigned to new
       frontend users.
 
-.. index:: User; linkMatchProperties
+.. index:: Site config - User; linkMatchProperties
 .. _config-site-linkMatchProperties:
 
 linkMatchProperties
@@ -191,6 +191,11 @@ linkMatchProperties
 Invoice
 =======
 
+The properties under the new keys (`bexio.invoice.new`, `bexio.invoice.position.new`)
+serve as default values when creating an invoice. When creating an invoice with
+the cli these properties can be modified. The meaning from the respective values
+can be looked up in the output from the console command :ref:`user-console-settings`.
+
 .. code-block:: yaml
    :caption: Invoice related site configuration properties
 
@@ -209,3 +214,21 @@ Invoice
            accountId: 278
            taxId: 16
            type: KbPositionCustom
+
+.. index:: Site config - Invoice; storageUid
+.. _config-site-invoice.storageUid:
+
+invoice.storageUid
+------------------
+
+.. container:: table-row
+
+   Property
+      invoice.storageUid
+
+   Data type
+      int/string
+
+   Description
+      Coma separated list of uid's from pages where invoices are located. The
+      first item is used to store new records.

@@ -24,57 +24,14 @@
 TYPO3 extension ``bexio``
 =========================
 
-This extension provides a client for the `Bexio API <https://docs.bexio.com/>`__
-by extending the client from the package
-`onlime/bexio-api-client <https://github.com/onlime/bexio-api-client>`__.
+The extension provides console commands as well as an API for other TYPO3
+extensions to interact with the book keeping app from
+`bexio <https://www.bexio.com>`__. It supports tasks to manage users and
+invoices.
+
+**ATTENTION:** The extension can only be used on composer installations.
 
 :Repository:  https://github.com/buepro/typo3-bexio
 :Read online: https://docs.typo3.org/p/buepro/typo3-bexio/main/en-us/
 :TER:         https://extensions.typo3.org/extension/bexio
 
-Usage
-=====
-
-Following these steps to use the client:
-
-#. Carry out the setup as outlined in the :ref:`administration manual <admin>`
-
-#. Authenticate the usage by loading the authentication url
-   (`https://your-domain.ch/bexio-auth-your_challange`). You will be redirected to the bexio authentication server.
-
-#. Get a client from the ApiService
-
-   .. code-block:: php
-
-      use Buepro\Bexio\Service\ApiService;
-
-      // Get the ApiService with the GeneralUtility or by dependency injection
-      $apiService = GeneralUtility::makeInstance(ApiService::class);
-      // Initialize the service with the request and get a client
-      $client = $apiService->initialize($serverRequest)->getClient();
-      // Load the tokens obtained by the Bexio authentication server
-      $client->loadTokens($apiService->getTokensFile());
-
-#. Use the client
-
-   .. code-block:: php
-
-      // @link https://github.com/onlime/bexio-api-client/tree/main/src/Bexio/Resource
-      use Bexio\Resource\Contact
-
-      $bexioContact = new Contact($client);
-      $contacts = $bexioContact->getContacts();
-
-Prerequisites
-=============
-
-This extension requires a composer based installation.
-
-Credits
-=======
-
--  This extension has been started by
-   `Philipp Müller from lavitto.ch <https://www.lavitto.ch/>`__
--  It uses the package
-   `onlime/bexio-api-client <https://github.com/onlime/bexio-api-client>`__
-   from `Philip Iezzi <https://www.onlime.ch/>`__

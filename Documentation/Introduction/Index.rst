@@ -30,45 +30,81 @@ This extension provides a client for the `Bexio API <https://docs.bexio.com/>`__
 by extending the client from the package
 `onlime/bexio-api-client <https://github.com/onlime/bexio-api-client>`__.
 
+.. _introduction-usage:
+
 Usage
 =====
 
-Following these steps to use the client:
+Following these steps to interact with the bexio api:
 
-#. Carry out the setup as outlined in the :ref:`administration manual <admin>`
+#. Carry out the setup as outlined in the :ref:`administration <admin>`
+   and :ref:`configuration manual <config>`.
 
 #. Authenticate the usage by loading the authentication url
    (`https://your-domain.ch/bexio-auth-your_challange`). You will be redirected
    to the bexio authentication server. Upon successful authentication a tokens
    file will be obtained.
 
-#. Get a client from the ApiService
+#. Interact with the bexio api through the console or the API.
 
-   .. code-block:: php
+.. _introduction-usage-console:
 
-      use Buepro\Bexio\Service\ApiService;
+Console
+-------
 
-      // Get the ApiService with the GeneralUtility or by dependency injection
-      $apiService = GeneralUtility::makeInstance(ApiService::class);
-      // Initialize the service for a site and get the client
-      $client = $apiService->initialize($site)->getClient();
-      // Or get the client from an already initialized service
-      $clientInOtherScope = (GeneralUtility::makeInstance(ApiService::class))->getClient();
+.. code-block:: shell
+   :caption: Update all frontend users that are already linked to a bexio contact
 
-#. Use the client
+   path/to/bin/typo3 bexio:updateusers
 
-   .. code-block:: php
+.. _introduction-usage-api:
 
-      // @link https://github.com/onlime/bexio-api-client/tree/main/src/Bexio/Resource
-      use Bexio\Resource\Contact
+API
+---
 
-      $bexioContact = new Contact($client);
-      $contacts = $bexioContact->getContacts();
+.. code-block:: php
+   :caption: Get a client from the ApiService
+
+   use Buepro\Bexio\Service\ApiService;
+
+   // Get the ApiService with the GeneralUtility or by dependency injection
+   $apiService = GeneralUtility::makeInstance(ApiService::class);
+   // Initialize the service for a site and get the client
+   $client = $apiService->initialize($site)->getClient();
+   // Or get the client from an already initialized service
+   $clientInOtherScope = (GeneralUtility::makeInstance(ApiService::class))->getClient();
+
+.. code-block:: php
+   :caption: Get all bexio contacts
+
+   // @link https://github.com/onlime/bexio-api-client/tree/main/src/Bexio/Resource
+   use Bexio\Resource\Contact
+
+   $bexioContact = new Contact($client);
+   $contacts = $bexioContact->getContacts();
+
+.. code-block:: php
+   :caption: Create an invoice
+
+   // use Buepro\Bexio\Task\Invoice\CreateInvoice;
+   $invoice = [
+      'title' => 'Test invoice',
+      'positions' => [
+         'text' => 'Some service',
+         'amount' => 3.2,
+         'unitPrice' => 90,
+      ],
+   ];
+   $result = (new CreateInvoice($site))->initialize($invoice)->process();
+
+.. _introduction-prerequisites:
 
 Prerequisites
 =============
 
 This extension requires a composer based installation.
+
+.. _introduction-credits:
 
 Credits
 =======
