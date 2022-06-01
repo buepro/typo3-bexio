@@ -10,6 +10,63 @@
 			<trans-unit id="fe_users.tx_bexio_id" resname="fe_users.tx_bexio_id">
 				<source>ID</source>
 			</trans-unit>
+			<trans-unit id="fe_users.tx_bexio_language_id" resname="fe_users.tx_bexio_language_id">
+				<source>Language ID</source>
+			</trans-unit>
+			<trans-unit id="fe_users.tx_bexio_invoices" resname="fe_users.tx_bexio_invoices">
+				<source>Invoices</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice" resname="tx_bexio_domain_model_invoice">
+				<source>Invoice</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.user" resname="tx_bexio_domain_model_invoice.user">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.title" resname="tx_bexio_domain_model_invoice.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.document_nr" resname="tx_bexio_domain_model_invoice.document_nr">
+				<source>Dodument Nr</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.language_id" resname="tx_bexio_domain_model_invoice.language_id">
+				<source>Language ID</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.bank_account_id" resname="tx_bexio_domain_model_invoice.bank_account_id">
+				<source>Bank account ID</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.currency_id" resname="tx_bexio_domain_model_invoice.currency_id">
+				<source>Currency ID</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.total" resname="tx_bexio_domain_model_invoice.total">
+				<source>Total</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.is_valid_from" resname="tx_bexio_domain_model_invoice.is_valid_from">
+				<source>Valid From</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.is_valid_to" resname="tx_bexio_domain_model_invoice.is_valid_to">
+				<source>Valid To</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.kb_item_status_id" resname="tx_bexio_domain_model_invoice.kb_item_status_id">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.reference" resname="tx_bexio_domain_model_invoice.reference">
+				<source>Reference</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.api_reference" resname="tx_bexio_domain_model_invoice.api_reference">
+				<source>API Reference</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.viewed_by_client_at" resname="tx_bexio_domain_model_invoice.viewed_by_client_at">
+				<source>Customer view time</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.esr_id" resname="tx_bexio_domain_model_invoice.esr_id">
+				<source>ESR ID</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.qr_invoice_id" resname="tx_bexio_domain_model_invoice.qr_invoice_id">
+				<source>QR invoice ID</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.network_link" resname="tx_bexio_domain_model_invoice.network_link">
+				<source>Network link</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

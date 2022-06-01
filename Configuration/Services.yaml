@@ -24,3 +24,9 @@ services:
       -
         name: 'console.command'
         command: 'bexio:query'
+
+  Buepro\Bexio\Command\Invoice\CreateInvoice:
+    tags:
+      -
+        name: 'console.command'
+        command: 'bexio:createinvoice'

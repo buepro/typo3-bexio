@@ -16,6 +16,7 @@ class ContactDto
 {
     protected int $id = 0;
     protected int $companyId = 0;
+    protected int $languageId = 0;
     protected string $company = '';
     protected string $firstName = '';
     protected string $lastName = '';
@@ -28,6 +29,7 @@ class ContactDto
     protected string $www = '';
 
     public const OWN_FOREIGN_PROPERTY_MAP = [
+        'languageId' => 'language_id',
         'company' => 'name_1',
         'firstName' => 'name_2',
         'lastName' => 'name_1',
@@ -41,6 +43,7 @@ class ContactDto
     public const PROPERTY_FIELD_MAP = [
         'id' => 'tx_bexio_id',
         'companyId' => 'tx_bexio_company_id',
+        'languageId' => 'tx_bexio_language_id',
         'company' => 'company',
         'firstName' => 'first_name',
         'lastName' => 'last_name',
@@ -56,6 +59,7 @@ class ContactDto
     public const PROPERTY_TYPE_MAP = [
         'id' => Connection::PARAM_INT,
         'companyId' => Connection::PARAM_INT,
+        'languageId' => Connection::PARAM_INT,
         'company' => Connection::PARAM_STR,
         'firstName' => Connection::PARAM_STR,
         'lastName' => Connection::PARAM_STR,
@@ -109,7 +113,11 @@ class ContactDto
             unset($propertyMap['company']);
         }
         foreach ($propertyMap as $own => $foreign) {
-            if (($value = trim($contact->$foreign ?? '')) !== '') {
+            if (!isset($contact->$foreign)) {
+                continue;
+            }
+            $value = is_string($contact->$foreign) ? trim($contact->$foreign) : $contact->$foreign;
+            if ((bool)$value) {
                 $dto->$own = $value;
             }
         }
@@ -175,6 +183,11 @@ class ContactDto
     public function getCompanyId(): int
     {
         return $this->companyId;
+    }
+
+    public function getLanguageId(): int
+    {
+        return $this->languageId;
     }
 
     public function getCompany(): string
