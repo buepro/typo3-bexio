@@ -30,3 +30,8 @@ services:
       -
         name: 'console.command'
         command: 'bexio:createinvoice'
+
+  Buepro\Bexio\Command\Settings:
+    tags:
+      - name: 'console.command'
+        command: 'bexio:settings'

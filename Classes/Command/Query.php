@@ -79,11 +79,8 @@ Without this option no arguments will be passed to the method.'
             $resourceClass = '\\Bexio\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
             $method = (string)$input->getArgument('method');
             $result = (new $resourceClass($client))->$method(...$methodArguments);
-            if (
-                $input->getOption('raw') === false &&
-                ($result = json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT)) === false
-            ) {
-                throw new \DomainException('Bexio api response could not be json encoded.', 1653727802);
+            if ($input->getOption('raw') === false) {
+                $result = json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR);
             }
             if (($file = $input->getOption('file')) !== null) {
                 $this->writeResultToFile($result, $file);
