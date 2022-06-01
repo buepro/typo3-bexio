@@ -41,7 +41,7 @@ class UpdateUsers extends AbstractTask implements TaskInterface
 
     public function initialize(array $options = self::DEFAULT_OPTIONS): TaskInterface
     {
-        $this->options = $options;
+        $this->options = array_merge(self::DEFAULT_OPTIONS, $options);
         return $this;
     }
 
