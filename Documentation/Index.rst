@@ -34,9 +34,19 @@ Bexio
 
 .. toctree::
    :maxdepth: 2
+   :titlesonly:
 
    Introduction/Index
    Administration/Index
+   Configuration/Index
    User/Index
    Api/Index
    Develop/Index
+
+.. Meta Menu
+
+.. toctree::
+   :hidden:
+
+   Sitemap
+   genindex

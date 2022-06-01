@@ -38,12 +38,14 @@ Use local packages:
 
 .. code-block:: json
 
-   "repositories": [
-      {
-         "type": "path",
-         "url": "/mnt/public/package/bexio-api-client"
-      }
-   ],
+   {
+       "repositories": [
+           {
+               "type": "path",
+               "url": "/mnt/public/package/bexio-api-client"
+           }
+       ]
+   }
 
 References
 ==========

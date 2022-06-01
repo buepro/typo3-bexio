@@ -24,6 +24,14 @@ Console
 
    Use the `-h` option to show details for a command
 
+Invoice
+-------
+
+.. code-block:: shell
+   :caption: Create an invoice interactively for frontend user with uid 1
+
+   path/to/bin/typo3 bexio:createinvoice default invoice 1
+
 Query
 -----
 
