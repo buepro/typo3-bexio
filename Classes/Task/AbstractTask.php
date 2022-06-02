@@ -10,10 +10,13 @@ declare(strict_types=1);
 
 namespace Buepro\Bexio\Task;
 
+use Buepro\Bexio\Helper\InitializationTrait;
 use TYPO3\CMS\Core\Site\Entity\Site;
 
 abstract class AbstractTask
 {
+    use InitializationTrait;
+
     protected Site $site;
 
     public function __construct(Site $site)

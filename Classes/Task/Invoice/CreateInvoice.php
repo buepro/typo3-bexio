@@ -25,11 +25,13 @@ class CreateInvoice extends AbstractTask implements TaskInterface
     public function initialize(int $userUid = 0, array $invoice = []): TaskInterface
     {
         $this->setUserData($userUid)->setBaseData($invoice)->setPositionData($invoice);
+        $this->setInitialized();
         return $this;
     }
 
     public function process(): array
     {
+        $this->assertInitialized();
         $client = GeneralUtility::makeInstance(ApiService::class)->initialize($this->site)->getClient();
         $invoiceResource = new Invoice($client);
         $response = $invoiceResource->createInvoice($this->invoiceData);

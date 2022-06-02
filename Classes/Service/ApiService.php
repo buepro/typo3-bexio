@@ -37,7 +37,7 @@ class ApiService
             Environment::getConfigPath(),
             $site->getIdentifier()
         );
-        $this->setInitialized(true);
+        $this->setInitialized();
         return $this;
     }
 

@@ -44,11 +44,13 @@ class UpdateUsers extends AbstractTask implements TaskInterface
     public function initialize(array $options = self::DEFAULT_OPTIONS): TaskInterface
     {
         $this->options = array_merge(self::DEFAULT_OPTIONS, $options);
+        $this->setInitialized();
         return $this;
     }
 
     public function process(): array
     {
+        $this->assertInitialized();
         $client = (GeneralUtility::makeInstance(ApiService::class))->initialize($this->site)->getClient();
         $contactResource = new Contact($client);
         $contacts = $contactResource->getContacts();
