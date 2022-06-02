@@ -11,18 +11,18 @@ declare(strict_types=1);
 
 namespace Buepro\Bexio\Command\User;
 
+use Buepro\Bexio\Command\AbstractSitesCommand;
 use Buepro\Bexio\Task\User\UpdateUsers as UpdateUsersTask;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Site\Entity\Site;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class UpdateUsers extends Command
+class UpdateUsers extends AbstractSitesCommand
 {
+    protected array $options = UpdateUsersTask::DEFAULT_OPTIONS;
+
     protected function configure(): void
     {
         $this
@@ -50,72 +50,30 @@ properties.'
                 InputOption::VALUE_NONE,
                 'Overwrite all field values with the ones from the
 linked bexio contact.'
-            )
-            ->addOption(
-                'site',
-                's',
-                InputOption::VALUE_REQUIRED,
-                'Site identifier from the site for which users should
-be updated. Without this option all sites are included.'
             );
+        parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $io->writeln('Updating local frontend users...');
-
-        if (($sites = $this->getSites($input, $io)) === null) {
-            return Command::INVALID;
-        }
-
-        $options = [
+        $this->options = [
             UpdateUsersTask::OPTION_CREATE => (bool)$input->getOption('create'),
             UpdateUsersTask::OPTION_LINK => (bool)$input->getOption('link'),
             UpdateUsersTask::OPTION_OVERWRITE => (bool)$input->getOption('overwrite'),
         ];
-
-        foreach ($sites as $site) {
-            try {
-                $statistics = (new UpdateUsersTask($site))->initialize($options)->process();
-                $io->writeln(sprintf(
-                    '- Site "%s": %d updated, %d new',
-                    $site->getIdentifier(),
-                    $statistics[UpdateUsersTask::STATISTICS_UPDATED],
-                    $statistics[UpdateUsersTask::STATISTICS_NEW]
-                ));
-            } catch (\Exception $e) {
-                $io->writeln(sprintf(
-                    '- Site "%s": %s (error code %d)',
-                    $site->getIdentifier(),
-                    $e->getMessage(),
-                    $e->getCode()
-                ));
-            }
-        }
-
-        return Command::SUCCESS;
+        return $this->processSites($input, $output);
     }
 
-    /** @return ?Site[] */
-    protected function getSites(InputInterface $input, SymfonyStyle $io): ?array
+    protected function processSite(Site $site, SymfonyStyle $io): void
     {
-        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-        $sites = $siteFinder->getAllSites();
-        if (count($sites) === 0) {
-            $io->writeln('<error>No site available.</error>');
-            return null;
-        }
-        if (($siteOption = $input->getOption('site')) !== null) {
-            $sites = [];
-            try {
-                $site = $siteFinder->getSiteByIdentifier($siteOption);
-                $sites[] = $site;
-            } catch (\Exception $e) {
-                $io->writeln('<error>The site "' . $siteOption . '" is not available.</error>');
-                return null;
-            }
-        }
-        return $sites;
+        $statistics = (new UpdateUsersTask($site))->initialize($this->options)->process();
+        $io->writeln(sprintf(
+            '- Site "%s": %d updated, %d new',
+            $site->getIdentifier(),
+            $statistics[UpdateUsersTask::STATISTICS_UPDATED],
+            $statistics[UpdateUsersTask::STATISTICS_NEW]
+        ));
     }
 }
