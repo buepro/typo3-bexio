@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace Buepro\Bexio\Command\Other;
 
 use Bexio\Resource\Accounting;
-use Bexio\Resource\Banking;
-use Bexio\Resource\Other;
+use Buepro\Bexio\Api\Resource\Banking;
+use Buepro\Bexio\Api\Resource\Other;
 use Buepro\Bexio\Service\ApiService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;

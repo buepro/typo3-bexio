@@ -76,7 +76,10 @@ Without this option no arguments will be passed to the method.'
             $site = GeneralUtility::makeInstance(SiteFinder::class)
                 ->getSiteByIdentifier((string)$input->getArgument('site'));
             $client = GeneralUtility::makeInstance(ApiService::class)->initialize($site)->getClient();
-            $resourceClass = '\\Bexio\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
+            $resourceClass = '\\Buepro\\Bexio\\Api\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
+            if (!class_exists($resourceClass)) {
+                $resourceClass = '\\Bexio\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
+            }
             $method = (string)$input->getArgument('method');
             $result = (new $resourceClass($client))->$method(...$methodArguments);
             if ($input->getOption('raw') === false) {

@@ -10,7 +10,7 @@
 namespace Buepro\Bexio\Task\User;
 
 use Bexio\Resource\Contact;
-use Bexio\Resource\Other;
+use Buepro\Bexio\Api\Resource\Other;
 use Buepro\Bexio\Dto\ContactDto;
 use Buepro\Bexio\Service\ApiService;
 use Buepro\Bexio\Task\AbstractTask;
