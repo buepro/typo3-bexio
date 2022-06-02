@@ -23,15 +23,9 @@
 		"source": "https://github.com/buepro/typo3-bexio",
 		"docs": "https://docs.typo3.org/p/buepro/typo3-bexio/main/en-us/"
 	},
-	"repositories": [
-		{
-			"type": "path",
-			"url": "/mnt/public/package/bexio-api-client"
-		}
-	],
 	"require": {
 		"php": ">=8.0.0",
-		"onlime/bexio-api-client": "dev-main || 0.4.1",
+		"onlime/bexio-api-client": "0.4.1",
 		"typo3/cms-core": "^v11.5.9"
 	},
 	"require-dev": {
