@@ -10,10 +10,11 @@ Site configuration
    :caption: Example site configuration for bexio related properties
 
    bexio:
-     authUrlSegmentChallenge: muhh
-     clientId: 11111111-1111-1111-11111111111111111
-     clientSecret: aaaaaaaaaaaaaaaaaaaa-aaaaa-aaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-     scopes: ['openid', 'profile', 'contact_edit', 'offline_access', 'kb_invoice_edit', 'bank_payment_edit']
+     auth:
+       urlSegmentChallenge: muhh
+       clientId: 11111111-1111-1111-11111111111111111
+       clientSecret: aaaaaaaaaaaaaaaaaaaa-aaaaa-aaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+       scopes: ['openid', 'profile', 'contact_edit', 'offline_access', 'kb_invoice_edit', 'bank_payment_edit']
      user:
        storageUid: 2
        userGroupUid: 1
@@ -42,21 +43,22 @@ Authentication
    :caption: Authentication related site properties
 
    bexio:
-     authUrlSegmentChallenge: muhh
-     clientId: 11111111-1111-1111-11111111111111111
-     clientSecret: aaaaaaaaaaaaaaaaaaaa-aaaaa-aaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-     scopes: ['openid', 'profile', 'contact_edit', 'offline_access', 'kb_invoice_edit', 'bank_payment_edit']
+     auth:
+       urlSegmentChallenge: muhh
+       clientId: 11111111-1111-1111-11111111111111111
+       clientSecret: aaaaaaaaaaaaaaaaaaaa-aaaaa-aaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+       scopes: ['openid', 'profile', 'contact_edit', 'offline_access', 'kb_invoice_edit', 'bank_payment_edit']
 
-.. index:: Site config - Authentication; authUrlSegmentChallenge
-.. _config-site-authUrlSegmentChallenge:
+.. index:: Site config - Authentication; urlSegmentChallenge
+.. _config-site-auth-urlSegmentChallenge:
 
-authUrlSegmentChallenge
+urlSegmentChallenge
 -----------------------
 
 .. container:: table-row
 
    Property
-      bexio.authUrlSegmentChallenge
+      bexio.auth.urlSegmentChallenge
 
    Data type
       string
@@ -67,7 +69,7 @@ authUrlSegmentChallenge
       `wdoufkyrkLoqaarxxvmdxyyj`.
 
 .. index:: Site config - Authentication; clientId
-.. _config-site-clientId:
+.. _config-site-auth-clientId:
 
 clientId
 --------
@@ -75,7 +77,7 @@ clientId
 .. container:: table-row
 
    Property
-      bexio.clientId
+      bexio.auth.clientId
 
    Data type
       string
@@ -85,7 +87,7 @@ clientId
       :ref:`Admin - Bexio <config-bexio>`)
 
 .. index:: Site config - Authentication; clientSecret
-.. _config-site-clientSecret:
+.. _config-site-auth-clientSecret:
 
 clientSecret
 ------------
@@ -93,7 +95,7 @@ clientSecret
 .. container:: table-row
 
    Property
-      bexio.clientSecret
+      bexio.auth.clientSecret
 
    Data type
       string
@@ -103,7 +105,7 @@ clientSecret
       :ref:`Admin - Bexio <config-bexio>`)
 
 .. index:: Site config - Authentication; scopes
-.. _config-site-scopes:
+.. _config-site-auth-scopes:
 
 scopes
 ------
@@ -111,7 +113,7 @@ scopes
 .. container:: table-row
 
    Property
-      bexio.scopes
+      bexio.auth.scopes
 
    Data type
       string

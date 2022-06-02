@@ -18,4 +18,4 @@ following structure:
 `[https://domain.ch]/bexio-auth-[url segment challenge]`
 
 Replace **[https://domain.ch]** with your domain and **[url segment challenge]**
-with the value defined for :ref:`config-site-authUrlSegmentChallenge`.
+with the value defined for :ref:`config-site-auth-urlSegmentChallenge`.

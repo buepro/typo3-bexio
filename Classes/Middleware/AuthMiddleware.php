@@ -24,7 +24,7 @@ class AuthMiddleware implements MiddlewareInterface
         if (
             strpos($request->getRequestTarget(), 'bexio-auth') !== false &&
             ($site = $request->getAttribute('site')) instanceof Site &&
-            ($challenge = trim($site->getConfiguration()['bexio']['authUrlSegmentChallenge'] ?? '')) !== '' &&
+            ($challenge = trim($site->getConfiguration()['bexio']['auth']['urlSegmentChallenge'] ?? '')) !== '' &&
             strpos($request->getRequestTarget(), 'bexio-auth-' . $challenge) !== false
         ) {
             return GeneralUtility::makeInstance(AuthController::class)->authenticate($request);

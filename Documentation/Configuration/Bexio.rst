@@ -13,7 +13,7 @@ Bexio
 
       Replace **[https://domain.ch]** with your domain and
       **[url segment challenge]** with the value defined for
-      :ref:`config-site-authUrlSegmentChallenge`.
+      :ref:`config-site-auth-urlSegmentChallenge`.
 
 #. Assign the "Client ID" and "Client Secret" to the corresponding properties
    `bexio.clientId` and `bexio.clientSecret` from the site configuration.

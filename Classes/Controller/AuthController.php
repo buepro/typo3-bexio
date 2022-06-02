@@ -30,13 +30,8 @@ class AuthController
 
     public function authenticate(ServerRequestInterface $request): ResponseInterface
     {
-        if (
-            ($site = $request->getAttribute('site')) instanceof Site &&
-            ($tokensFile = $this->apiService->initialize($site)->getTokensFile()) !== null
-        ) {
-            $client = $this->apiService->getClient();
-            $client->authenticate($this->apiService->getScopes(), $this->apiService->getRedirectUrl($request));
-            $client->persistTokens($tokensFile);
+        if (($site = $request->getAttribute('site')) instanceof Site) {
+            $this->apiService->initialize($site)->authenticate($request);
             return $this->getResponse('You have been authenticated and can now use the services.');
         }
         return $this->getResponse('Authentication failed.');
