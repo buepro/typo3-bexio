@@ -9,7 +9,7 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Buepro\Bexio\Command;
+namespace Buepro\Bexio\Command\Other;
 
 use Buepro\Bexio\Service\ApiService;
 use Symfony\Component\Console\Command\Command;

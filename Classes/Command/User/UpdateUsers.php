@@ -9,9 +9,9 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Buepro\Bexio\Command;
+namespace Buepro\Bexio\Command\User;
 
-use Buepro\Bexio\Task\UpdateUsers as UpdateUsersTask;
+use Buepro\Bexio\Task\User\UpdateUsers as UpdateUsersTask;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

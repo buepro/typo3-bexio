@@ -19,13 +19,13 @@ User
 .. code-block:: php
    :caption: Update frontend users
 
-   // use Buepro\Bexio\Task\UpdateUsers;
+   // use Buepro\Bexio\Task\User\UpdateUsers;
    $result = (new UpdateUsers($site))->initialize()->process();
 
 .. code-block:: php
    :caption: Synchronize bexio contacts to frontend users
 
-   // use Buepro\Bexio\Task\UpdateUsers;
+   // use Buepro\Bexio\Task\User\UpdateUsers;
    $options = [
       UpdateUsers::OPTION_CREATE => true,
    ];

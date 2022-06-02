@@ -13,25 +13,34 @@ services:
   Buepro\Bexio\Service\ApiService:
     public: true
 
-  Buepro\Bexio\Command\UpdateUsers:
-    tags:
-      -
-        name: 'console.command'
-        command: 'bexio:updateusers'
-
-  Buepro\Bexio\Command\Query:
-    tags:
-      -
-        name: 'console.command'
-        command: 'bexio:query'
-
+  #
+  # Invoice commands
+  #
   Buepro\Bexio\Command\Invoice\CreateInvoice:
     tags:
       -
         name: 'console.command'
         command: 'bexio:createinvoice'
 
-  Buepro\Bexio\Command\Settings:
+  #
+  # User commands
+  #
+  Buepro\Bexio\Command\User\UpdateUsers:
+    tags:
+      -
+        name: 'console.command'
+        command: 'bexio:updateusers'
+
+  #
+  # Other commands
+  #
+  Buepro\Bexio\Command\Other\Query:
+    tags:
+      -
+        name: 'console.command'
+        command: 'bexio:query'
+
+  Buepro\Bexio\Command\Other\Settings:
     tags:
       - name: 'console.command'
         command: 'bexio:settings'

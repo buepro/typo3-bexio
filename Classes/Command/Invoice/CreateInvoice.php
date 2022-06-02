@@ -84,7 +84,7 @@ class CreateInvoice extends Command
         $details = [];
         $invoiceService = new InvoiceSiteService($this->site);
         $helper = $this->getHelper('question');
-        $addPositionQuestion = new ConfirmationQuestion('Add position [y, n] (y): ', true);
+        $addPositionQuestion = new ConfirmationQuestion('Add position [y, n](y): ', true);
         $pos = 1;
         while ($helper->ask($input, $output, $addPositionQuestion)) {
             $output->writeln('');

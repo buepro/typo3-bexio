@@ -31,22 +31,6 @@ Logging
        ],
    ];
 
-Composer
-========
-
-Use local packages:
-
-.. code-block:: json
-
-   {
-       "repositories": [
-           {
-               "type": "path",
-               "url": "/mnt/public/package/bexio-api-client"
-           }
-       ]
-   }
-
 References
 ==========
 

@@ -14,9 +14,10 @@ Site configuration
      clientId: 11111111-1111-1111-11111111111111111
      clientSecret: aaaaaaaaaaaaaaaaaaaa-aaaaa-aaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
      scopes: ['openid', 'profile', 'contact_edit', 'offline_access', 'kb_invoice_edit', 'bank_payment_edit']
-     storageUid: 2
-     userGroupUid: 1
-     linkMatchProperties: firstName, lastName, email
+     user:
+       storageUid: 2
+       userGroupUid: 1
+       linkMatchProperties: firstName, lastName, email
      invoice:
        storageUid: 3
        new:
@@ -127,9 +128,10 @@ User
    :caption: User related site configuration properties
 
    bexio:
-     storageUid = 2
-     userGroupUid = 1
-     linkMatchProperties = firstName, lastName, email
+     user:
+       storageUid = 2
+       userGroupUid = 1
+       linkMatchProperties = firstName, lastName, email
 
 .. index:: Site config - User; storageUid
 .. _config-site-storageUid:
@@ -140,7 +142,7 @@ storageUid
 .. container:: table-row
 
    Property
-      bexio.storageUid
+      bexio.user.storageUid
 
    Data type
       int/string
@@ -158,7 +160,7 @@ userGroupUid
 .. container:: table-row
 
    Property
-      bexio.userGroupUid
+      bexio.user.userGroupUid
 
    Data type
       int/string
@@ -176,7 +178,7 @@ linkMatchProperties
 .. container:: table-row
 
    Property
-      bexio.linkMatchProperties
+      bexio.user.linkMatchProperties
 
    Data type
       string

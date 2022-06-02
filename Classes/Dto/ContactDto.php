@@ -9,7 +9,7 @@
 
 namespace Buepro\Bexio\Dto;
 
-use Buepro\Bexio\Task\UpdateUsers;
+use Buepro\Bexio\Task\User\UpdateUsers;
 use TYPO3\CMS\Core\Database\Connection;
 
 class ContactDto

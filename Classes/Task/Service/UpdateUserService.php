@@ -8,10 +8,10 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Buepro\Bexio\Service;
+namespace Buepro\Bexio\Task\Service;
 
 use Buepro\Bexio\Dto\ContactDto;
-use Buepro\Bexio\Task\UpdateUsers;
+use Buepro\Bexio\Task\User\UpdateUsers;
 use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -32,7 +32,7 @@ class UpdateUserService
     public function __construct(Site $site, array $options)
     {
         $this->options = $options;
-        $config = $site->getConfiguration()['bexio'] ?? [];
+        $config = $site->getConfiguration()['bexio']['user'] ?? [];
         $storageUid = (string)($config['storageUid'] ?? '0');
         $this->storageUids = GeneralUtility::intExplode(',', $storageUid, true);
         $userGroupUid = trim((string)($config['userGroupUid'] ?? ''));

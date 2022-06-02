@@ -3,22 +3,22 @@ parameters:
 		-
 			message: "#^Variable method call on mixed\\.$#"
 			count: 1
-			path: ../Classes/Command/Query.php
+			path: ../Classes/Command/Other/Query.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with mixed will always evaluate to false\\.$#"
 			count: 1
-			path: ../Classes/Command/Settings.php
+			path: ../Classes/Command/Other/Settings.php
 
 		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
-			path: ../Classes/Command/Settings.php
+			path: ../Classes/Command/Other/Settings.php
 
 		-
 			message: "#^Variable property access on mixed\\.$#"
 			count: 2
-			path: ../Classes/Command/Settings.php
+			path: ../Classes/Command/Other/Settings.php
 
 		-
 			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\)\\.$#"
@@ -33,5 +33,5 @@ parameters:
 		-
 			message: "#^Variable method call on Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\.$#"
 			count: 1
-			path: ../Classes/Service/UpdateUserService.php
+			path: ../Classes/Task/Service/UpdateUserService.php
 

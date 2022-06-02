@@ -7,13 +7,15 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Buepro\Bexio\Task;
+namespace Buepro\Bexio\Task\User;
 
 use Bexio\Resource\Contact;
 use Bexio\Resource\Other;
 use Buepro\Bexio\Dto\ContactDto;
 use Buepro\Bexio\Service\ApiService;
-use Buepro\Bexio\Service\UpdateUserService;
+use Buepro\Bexio\Task\AbstractTask;
+use Buepro\Bexio\Task\Service\UpdateUserService;
+use Buepro\Bexio\Task\TaskInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UpdateUsers extends AbstractTask implements TaskInterface
