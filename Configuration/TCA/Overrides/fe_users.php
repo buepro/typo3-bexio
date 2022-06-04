@@ -46,6 +46,7 @@ defined('TYPO3') or die('Access denied.');
                 'type' => 'inline',
                 'foreign_table' => 'tx_bexio_domain_model_invoice',
                 'foreign_field' => 'user',
+                'foreign_default_sortby' => 'id desc',
                 'maxitems' => 9999,
                 'appearance' => [
                     'collapseAll' => 1,

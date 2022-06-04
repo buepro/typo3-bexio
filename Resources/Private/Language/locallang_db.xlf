@@ -19,6 +19,9 @@
 			<trans-unit id="tx_bexio_domain_model_invoice" resname="tx_bexio_domain_model_invoice">
 				<source>Invoice</source>
 			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.id" resname="tx_bexio_domain_model_invoice.id">
+				<source>ID</source>
+			</trans-unit>
 			<trans-unit id="tx_bexio_domain_model_invoice.user" resname="tx_bexio_domain_model_invoice.user">
 				<source>User</source>
 			</trans-unit>
@@ -66,6 +69,9 @@
 			</trans-unit>
 			<trans-unit id="tx_bexio_domain_model_invoice.network_link" resname="tx_bexio_domain_model_invoice.network_link">
 				<source>Network link</source>
+			</trans-unit>
+			<trans-unit id="tx_bexio_domain_model_invoice.payment_process_time" resname="tx_bexio_domain_model_invoice.payment_process_time">
+				<source>Payment process time</source>
 			</trans-unit>
 		</body>
 	</file>

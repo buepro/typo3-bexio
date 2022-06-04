@@ -6,6 +6,7 @@ CREATE TABLE fe_users (
 );
 
 CREATE TABLE tx_bexio_domain_model_invoice (
+	id int(11) unsigned DEFAULT '0' NOT NULL,
   user int(11) unsigned DEFAULT '0' NOT NULL,
   title varchar(255) NOT NULL DEFAULT '',
   document_nr varchar(255) NOT NULL DEFAULT '',
@@ -22,4 +23,5 @@ CREATE TABLE tx_bexio_domain_model_invoice (
 	esr_id int(11) unsigned DEFAULT '0' NOT NULL,
 	qr_invoice_id int(11) unsigned DEFAULT '0' NOT NULL,
 	network_link varchar(511) NOT NULL DEFAULT '',
+	payment_process_time int(11) DEFAULT '0' NOT NULL,
 );

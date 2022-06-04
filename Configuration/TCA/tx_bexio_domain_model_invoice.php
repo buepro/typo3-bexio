@@ -12,7 +12,7 @@ return [
     'ctrl' => [
         'title' => 'LLL:EXT:bexio/Resources/Private/Language/locallang_db.xlf:tx_bexio_domain_model_invoice',
         'label' => 'title',
-        'label_alt' => 'user, title, document_nr, reference',
+        'label_alt' => 'document_nr, reference, total, is_valid_to',
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -21,27 +21,41 @@ return [
         'enablecolumns' => [
         ],
         'searchFields' => 'title, document_nr, total, reference',
-        'default_sortby' => 'tstamp DESC',
-        'iconfile' => 'EXT:bexio/Resources/Public/Icons/domain-model-invoice.svg'
+        'default_sortby' => 'id desc',
+        'iconfile' => 'EXT:bexio/Resources/Public/Icons/domain-model-invoice.svg',
     ],
     'palettes' => [
-        'document_refs' => [
-            'showitem' => 'document_nr, esr_id, qr_invoice_id, --linebreak--, language_id, kb_item_status_id, ' .
-                '--linebreak--, reference, api_reference',
-        ],
-        'payment' => [
-            'showitem' => 'bank_account_id, currency_id, total',
+        'header' => [
+            'showitem' => 'title, kb_item_status_id',
         ],
         'dates' => [
-            'showitem' => 'is_valid_from, is_valid_to, viewed_by_client_at',
+            'showitem' => 'is_valid_from, is_valid_to, --linebreak--, viewed_by_client_at',
+        ],
+        'ids' => [
+            'showitem' => 'id, document_nr, --linebreak--, esr_id, qr_invoice_id',
+        ],
+        'refs' => [
+            'showitem' => 'reference, api_reference',
+        ],
+        'payment' => [
+            'showitem' => 'total, currency_id, --linebreak--, bank_account_id, payment_process_time',
         ],
     ],
     'types' => [
         '1' => [
-            'showitem' => 'user, title, --palette--;;document_refs, --palette--;;payment, network_link',
+            'showitem' => 'user, --palette--;;header, --palette--;;payment, --palette--;;dates, --palette--;;ids, ' .
+                '--palette--;;refs, language_id, network_link',
         ],
     ],
     'columns' => [
+        'id' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:bexio/Resources/Private/Language/locallang_db.xlf:tx_bexio_domain_model_invoice.id',
+            'config' => [
+                'readOnly' => 1,
+                'type' => 'input',
+            ],
+        ],
         'user' => [
             'exclude' => true,
             'label' => 'LLL:EXT:bexio/Resources/Private/Language/locallang_db.xlf:tx_bexio_domain_model_invoice.user',
@@ -49,7 +63,7 @@ return [
                 'readOnly' => 1,
                 'type' => 'inline',
                 'foreign_table' => 'fe_users',
-                'foreign_field' => 'uid',
+                'foreign_label' => 'company',
                 'maxitems' => 1,
                 'appearance' => [
                     'collapseAll' => 1,
@@ -62,7 +76,6 @@ return [
             'config' => [
                 'readOnly' => 1,
                 'type' => 'input',
-                'size' => 100,
             ],
         ],
         'document_nr' => [
@@ -143,7 +156,6 @@ return [
             'config' => [
                 'readOnly' => 1,
                 'type' => 'input',
-                'size' => 50,
             ],
         ],
         'api_reference' => [
@@ -189,6 +201,18 @@ return [
                 'readOnly' => 1,
                 'type' => 'input',
                 'size' => 100,
+            ],
+        ],
+        'payment_process_time' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:bexio/Resources/Private/Language/locallang_db.xlf:tx_bexio_domain_model_invoice.payment_process_time',
+            'config' => [
+                'readOnly' => 1,
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 14,
+                'eval' => 'datetime',
+                'default' => 0,
             ],
         ],
     ],

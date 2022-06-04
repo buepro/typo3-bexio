@@ -17,6 +17,7 @@ extends some of them and adds additional ones (see namespace
 `Buepro\Bexio\Api\Resource`). Resource objects are instantiated with a client
 object that can be obtained by the ApiService object:
 
+.. index:: API; Client
 .. code-block:: php
    :caption: Get a client from the ApiService
 
@@ -29,6 +30,7 @@ object that can be obtained by the ApiService object:
    // Or get the client from an already initialized service
    $clientInOtherScope = (GeneralUtility::makeInstance(ApiService::class))->getClient();
 
+.. index:: API - Resource; Contact
 .. code-block:: php
    :caption: Get all bexio contacts using the Contact resource object
 
@@ -48,6 +50,7 @@ Tasks
 User
 ----
 
+.. index:: API - Tasks; UpdateUsers
 .. code-block:: php
    :caption: Update frontend users
 
@@ -68,6 +71,7 @@ User
 Invoice
 -------
 
+.. index:: API - Tasks; CreateInvoice
 .. code-block:: php
    :caption: Create an invoice
 
@@ -81,3 +85,10 @@ Invoice
       ],
    ];
    $result = (new CreateInvoice($site))->initialize($invoice)->process();
+
+.. index:: API - Tasks; UpdateInvoices
+.. code-block:: php
+   :caption: Update paid and get pending invoices
+
+   // use Buepro\Bexio\Task\Invoice\UpdateInvoices;
+   $result = (new UpdateInvoices($site))->initialize()->process();

@@ -31,6 +31,36 @@ parameters:
 			path: ../Classes/Dto/ContactDto.php
 
 		-
+			message: "#^Variable method call on Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\.$#"
+			count: 5
+			path: ../Classes/Dto/InvoiceDto.php
+
+		-
+			message: "#^Cannot call method add\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/UpdateInvoices.php
+
+		-
+			message: "#^Cannot call method findByBexioId\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\UserRepository\\|null\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/UpdateInvoices.php
+
+		-
+			message: "#^Cannot call method getAllPending\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/UpdateInvoices.php
+
+		-
+			message: "#^Cannot call method update\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/UpdateInvoices.php
+
+		-
+			message: "#^Parameter \\#1 \\$client of class Bexio\\\\Resource\\\\Invoice constructor expects Bexio\\\\AbstractClient, Buepro\\\\Bexio\\\\Api\\\\Client\\|null given\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/UpdateInvoices.php
+
+		-
 			message: "#^Variable method call on Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\.$#"
 			count: 1
 			path: ../Classes/Task/Service/UpdateUserService.php

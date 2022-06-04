@@ -6,6 +6,9 @@ services:
 
   Buepro\Bexio\:
     resource: '../Classes/*'
+    exclude:
+      - '../Classes/Domain/{Model,Validator}'
+      - '../Classes/Dto/{Dto}'
 
   Buepro\Bexio\Controller\AuthController:
     public: true
@@ -21,6 +24,12 @@ services:
       -
         name: 'console.command'
         command: 'bexio:createinvoice'
+
+  Buepro\Bexio\Command\Invoice\UpdateInvoices:
+    tags:
+      -
+        name: 'console.command'
+        command: 'bexio:updateinvoices'
 
   #
   # User commands

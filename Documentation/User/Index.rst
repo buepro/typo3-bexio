@@ -28,22 +28,44 @@ Console
 
    Use the `-h` option to show details for a command
 
-.. index:: Command; bexio:invoice
 .. _user-console-invoice:
 
 Invoice
 -------
 
+.. index:: Command; bexio:createinvoice
 .. code-block:: shell
    :caption: Create an invoice interactively for frontend user with uid 1
 
    path/to/bin/typo3 bexio:createinvoice default invoice 1
 
+.. index:: Command; bexio:updateinvoices
+.. code-block:: shell
+   :caption: Update paid and get pending invoices
+
+   path/to/bin/typo3 bexio:updateinvoices
+
+.. _user-console-updateusers:
+
+Users
+-----
+
+.. index:: Command; bexio:updateusers
+.. code-block:: shell
+   :caption: Update all frontend users that are already linked to a bexio contact
+
+   path/to/bin/typo3 bexio:updateusers
+
+.. _user-console-other:
+
+Other
+-----
+
 .. index:: Command; bexio:query
 .. _user-console-query:
 
 Query
------
+~~~~~
 
 .. note::
 
@@ -72,22 +94,11 @@ Query
 
    path/to/bin/typo3 bexio:query default other getLanguages
 
-.. index:: Command; bexio:updateusers
-.. _user-console-updateusers:
-
-Update users
-------------
-
-.. code-block:: shell
-   :caption: Update all frontend users that are already linked to a bexio contact
-
-   path/to/bin/typo3 bexio:updateusers
-
 .. index:: Command; bexio:settings
 .. _user-console-settings:
 
 Settings
---------
+~~~~~~~~
 
 .. code-block:: shell
    :caption: Write bexio settings in yaml format to settings.yaml
