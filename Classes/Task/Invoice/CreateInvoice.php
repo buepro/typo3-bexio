@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Buepro\Bexio\Task\Invoice;
 
 use Bexio\Resource\Invoice;
-use Buepro\Bexio\Service\ApiService;
 use Buepro\Bexio\Service\InvoiceSiteService;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
@@ -32,8 +31,7 @@ class CreateInvoice extends AbstractTask implements TaskInterface
     public function process(): array
     {
         $this->assertInitialized();
-        $client = GeneralUtility::makeInstance(ApiService::class)->initialize($this->site)->getClient();
-        $invoiceResource = new Invoice($client);
+        $invoiceResource = new Invoice($this->apiClient);
         $response = $invoiceResource->createInvoice($this->invoiceData);
         $invoiceId = $response->id;
         $invoiceResource->issueInvoice($invoiceId);

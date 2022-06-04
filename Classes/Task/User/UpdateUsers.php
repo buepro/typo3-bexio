@@ -12,11 +12,9 @@ namespace Buepro\Bexio\Task\User;
 use Bexio\Resource\Contact;
 use Buepro\Bexio\Api\Resource\Other;
 use Buepro\Bexio\Dto\ContactDto;
-use Buepro\Bexio\Service\ApiService;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
 use Buepro\Bexio\Task\User\Service\UpdateService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UpdateUsers extends AbstractTask implements TaskInterface
 {
@@ -51,11 +49,10 @@ class UpdateUsers extends AbstractTask implements TaskInterface
     public function process(): array
     {
         $this->assertInitialized();
-        $client = (GeneralUtility::makeInstance(ApiService::class))->initialize($this->site)->getClient();
-        $contactResource = new Contact($client);
+        $contactResource = new Contact($this->apiClient);
         $contacts = $contactResource->getContacts();
         $relations = $contactResource->getContactsRelations();
-        $countries = (new Other($client))->getCountries();
+        $countries = (new Other($this->apiClient))->getCountries();
         if (!is_array($relations) || !is_array($countries)) {
             return self::DEFAULT_STATISTICS;
         }

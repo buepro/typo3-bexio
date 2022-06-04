@@ -63,5 +63,5 @@ parameters:
 		-
 			message: "#^Variable method call on Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\.$#"
 			count: 1
-			path: ../Classes/Task/Service/UpdateUserService.php
+			path: ../Classes/Task/User/Service/UpdateService.php
 

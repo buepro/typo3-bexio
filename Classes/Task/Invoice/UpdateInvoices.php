@@ -10,12 +10,10 @@
 namespace Buepro\Bexio\Task\Invoice;
 
 use Bexio\Resource\Invoice as InvoiceResource;
-use Buepro\Bexio\Api\Client;
 use Buepro\Bexio\Domain\Model\Invoice;
 use Buepro\Bexio\Domain\Repository\InvoiceRepository;
 use Buepro\Bexio\Domain\Repository\UserRepository;
 use Buepro\Bexio\Dto\InvoiceDto;
-use Buepro\Bexio\Service\ApiService;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -32,7 +30,6 @@ class UpdateInvoices extends AbstractTask implements TaskInterface
     protected array $invoiceStorageUids = [];
     protected ?UserRepository $userRepository = null;
     protected ?InvoiceRepository $invoiceRepository = null;
-    protected ?Client $apiClient = null;
 
     public function initialize(array $options = self::DEFAULT_OPTIONS): TaskInterface
     {
@@ -49,7 +46,6 @@ class UpdateInvoices extends AbstractTask implements TaskInterface
             ->setQuerySettings($this->userStorageUids);
         ($this->invoiceRepository = GeneralUtility::makeInstance(InvoiceRepository::class))
             ->setQuerySettings($this->invoiceStorageUids);
-        $this->apiClient = GeneralUtility::makeInstance(ApiService::class)->initialize($this->site)->getClient();
         $this->setInitialized();
         return $this;
     }

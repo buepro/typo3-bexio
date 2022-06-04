@@ -10,17 +10,22 @@ declare(strict_types=1);
 
 namespace Buepro\Bexio\Task;
 
+use Buepro\Bexio\Api\Client;
 use Buepro\Bexio\Helper\InitializationTrait;
+use Buepro\Bexio\Service\ApiService;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class AbstractTask
 {
     use InitializationTrait;
 
     protected Site $site;
+    protected Client $apiClient;
 
     public function __construct(Site $site)
     {
         $this->site = $site;
+        $this->apiClient = GeneralUtility::makeInstance(ApiService::class)->initialize($site)->getClient();
     }
 }
