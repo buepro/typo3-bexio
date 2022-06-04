@@ -8,7 +8,7 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Buepro\Bexio\Task\Service;
+namespace Buepro\Bexio\Task\User\Service;
 
 use Buepro\Bexio\Dto\ContactDto;
 use Buepro\Bexio\Task\User\UpdateUsers;
@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class UpdateUserService
+class UpdateService
 {
     protected array $options;
     /** @var int[] */

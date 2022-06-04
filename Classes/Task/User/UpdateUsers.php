@@ -14,8 +14,8 @@ use Buepro\Bexio\Api\Resource\Other;
 use Buepro\Bexio\Dto\ContactDto;
 use Buepro\Bexio\Service\ApiService;
 use Buepro\Bexio\Task\AbstractTask;
-use Buepro\Bexio\Task\Service\UpdateUserService;
 use Buepro\Bexio\Task\TaskInterface;
+use Buepro\Bexio\Task\User\Service\UpdateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UpdateUsers extends AbstractTask implements TaskInterface
@@ -109,7 +109,7 @@ class UpdateUsers extends AbstractTask implements TaskInterface
      */
     protected function updateFrontendUsers(array $contactDtos): array
     {
-        $updateUserService = new UpdateUserService($this->site, $this->options);
+        $updateUserService = new UpdateService($this->site, $this->options);
         foreach ($contactDtos as $contactDto) {
             $updateUserService->processContactDto($contactDto);
         }
