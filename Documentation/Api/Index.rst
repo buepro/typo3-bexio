@@ -92,3 +92,10 @@ Invoice
 
    // use Buepro\Bexio\Task\Invoice\UpdateInvoices;
    $result = (new UpdateInvoices($site))->initialize()->process();
+
+.. index:: API - Tasks; ProcessPayments
+.. code-block:: php
+   :caption: Process invoice payments by emitting an event
+
+   // use Buepro\Bexio\Task\Invoice\ProcessPayments;
+   $result = (new ProcessPayments($site))->initialize()->process();

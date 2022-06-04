@@ -25,6 +25,11 @@ services:
         name: 'console.command'
         command: 'bexio:createinvoice'
 
+  Buepro\Bexio\Command\Invoice\ProcessPayments:
+    tags:
+      - name: 'console.command'
+        command: 'bexio:processpayments'
+
   Buepro\Bexio\Command\Invoice\UpdateInvoices:
     tags:
       -

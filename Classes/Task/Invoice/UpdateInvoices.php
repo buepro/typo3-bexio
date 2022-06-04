@@ -10,9 +10,8 @@
 namespace Buepro\Bexio\Task\Invoice;
 
 use Bexio\Resource\Invoice as InvoiceResource;
+use Buepro\Bexio\Command\Invoice\UserInvoiceTrait;
 use Buepro\Bexio\Domain\Model\Invoice;
-use Buepro\Bexio\Domain\Repository\InvoiceRepository;
-use Buepro\Bexio\Domain\Repository\UserRepository;
 use Buepro\Bexio\Dto\InvoiceDto;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
@@ -21,31 +20,18 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class UpdateInvoices extends AbstractTask implements TaskInterface
 {
+    use UserInvoiceTrait;
+
     public const DEFAULT_OPTIONS = [
         'from' => null,
         'include-paid' => false,
     ];
     protected array $options = self::DEFAULT_OPTIONS;
-    protected array $userStorageUids = [];
-    protected array $invoiceStorageUids = [];
-    protected ?UserRepository $userRepository = null;
-    protected ?InvoiceRepository $invoiceRepository = null;
 
     public function initialize(array $options = self::DEFAULT_OPTIONS): TaskInterface
     {
         $this->options = $options;
-        if (
-            (($userStorageUid = $this->site->getConfiguration()['bexio']['user']['storageUid'] ?? null) === null) ||
-            (($invoiceStorageUid = $this->site->getConfiguration()['bexio']['invoice']['storageUid'] ?? null) === null) ||
-            count($this->userStorageUids = GeneralUtility::intExplode(',', $userStorageUid, true)) < 1 ||
-            count($this->invoiceStorageUids = GeneralUtility::intExplode(',', $invoiceStorageUid, true)) < 1
-        ) {
-            return $this;
-        }
-        ($this->userRepository = GeneralUtility::makeInstance(UserRepository::class))
-            ->setQuerySettings($this->userStorageUids);
-        ($this->invoiceRepository = GeneralUtility::makeInstance(InvoiceRepository::class))
-            ->setQuerySettings($this->invoiceStorageUids);
+        $this->initializeUserInvoiceElements();
         $this->setInitialized();
         return $this;
     }
@@ -54,7 +40,7 @@ class UpdateInvoices extends AbstractTask implements TaskInterface
     {
         $result = [];
         $this->assertInitialized();
-        $localInvoices = $this->invoiceRepository->getAllPending();
+        $localInvoices = $this->invoiceRepository->findAllPending();
         $invoicesSince = new \DateTime();
         if (isset($localInvoices[0])) {
             $invoicesSince = $localInvoices[0]->getIsValidFrom();

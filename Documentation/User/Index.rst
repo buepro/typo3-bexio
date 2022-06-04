@@ -39,6 +39,12 @@ Invoice
 
    path/to/bin/typo3 bexio:createinvoice default invoice 1
 
+.. index:: Command; bexio:processpayments
+.. code-block:: shell
+   :caption: Process invoice payments by emitting an event
+
+   path/to/bin/typo3 bexio:processpayments
+
 .. index:: Command; bexio:updateinvoices
 .. code-block:: shell
    :caption: Update paid and get pending invoices

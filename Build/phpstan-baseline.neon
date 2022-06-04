@@ -21,6 +21,11 @@ parameters:
 			path: ../Classes/Command/Other/Settings.php
 
 		-
+			message: "#^Method TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\QueryInterface\\:\\:logicalAnd\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: ../Classes/Domain/Repository/InvoiceRepository.php
+
+		-
 			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\)\\.$#"
 			count: 3
 			path: ../Classes/Dto/ContactDto.php
@@ -36,7 +41,27 @@ parameters:
 			path: ../Classes/Dto/InvoiceDto.php
 
 		-
+			message: "#^Call to an undefined method object\\:\\:getReprocessingRequested\\(\\)\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/ProcessPayments.php
+
+		-
+			message: "#^Cannot call method findAllForPaymentProcessing\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/ProcessPayments.php
+
+		-
+			message: "#^Cannot call method update\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/ProcessPayments.php
+
+		-
 			message: "#^Cannot call method add\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
+			count: 1
+			path: ../Classes/Task/Invoice/UpdateInvoices.php
+
+		-
+			message: "#^Cannot call method findAllPending\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
 			count: 1
 			path: ../Classes/Task/Invoice/UpdateInvoices.php
 
@@ -46,17 +71,7 @@ parameters:
 			path: ../Classes/Task/Invoice/UpdateInvoices.php
 
 		-
-			message: "#^Cannot call method getAllPending\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
-			count: 1
-			path: ../Classes/Task/Invoice/UpdateInvoices.php
-
-		-
 			message: "#^Cannot call method update\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
-			count: 1
-			path: ../Classes/Task/Invoice/UpdateInvoices.php
-
-		-
-			message: "#^Parameter \\#1 \\$client of class Bexio\\\\Resource\\\\Invoice constructor expects Bexio\\\\AbstractClient, Buepro\\\\Bexio\\\\Api\\\\Client\\|null given\\.$#"
 			count: 1
 			path: ../Classes/Task/Invoice/UpdateInvoices.php
 

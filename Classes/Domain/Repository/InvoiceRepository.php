@@ -16,12 +16,26 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 class InvoiceRepository extends AbstractRepository
 {
     /** @return Invoice[] */
-    public function getAllPending(): array
+    public function findAllPending(): array
     {
         $query = $this->createQuery();
         return $query
             ->matching($query->equals('kbItemStatusId', Invoice::STATUS_OPEN))
             ->setOrderings(['isValidFrom' => Query::ORDER_ASCENDING])
+            ->execute()
+            ->toArray();
+    }
+
+    /** @return Invoice[] */
+    public function findAllForPaymentProcessing(): array
+    {
+        $query = $this->createQuery();
+        return $query
+            ->matching($query->logicalAnd(
+                $query->equals('kbItemStatusId', Invoice::STATUS_PAID),
+                $query->equals('paymentProcessTime', 0)
+            ))
+            ->setOrderings(['id' => Query::ORDER_ASCENDING])
             ->execute()
             ->toArray();
     }
