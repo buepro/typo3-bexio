@@ -95,7 +95,7 @@ API
          'unitPrice' => 90,
       ],
    ];
-   $result = (new CreateInvoice($site))->initialize($invoice)->process();
+   $result = (new CreateInvoice())->initialize($site, $invoice)->process();
 
 .. _introduction-prerequisites:
 

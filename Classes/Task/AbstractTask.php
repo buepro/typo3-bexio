@@ -23,9 +23,11 @@ abstract class AbstractTask
     protected Site $site;
     protected Client $apiClient;
 
-    public function __construct(Site $site)
+    /** @return self|TaskInterface */
+    public function initialize(Site $site)
     {
         $this->site = $site;
         $this->apiClient = GeneralUtility::makeInstance(ApiService::class)->initialize($site)->getClient();
+        return $this;
     }
 }

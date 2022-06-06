@@ -37,7 +37,7 @@ assigned yet by dispatching an event.'
 
     protected function processSite(Site $site, SymfonyStyle $io): void
     {
-        $statistics = (new ProcessPaymentsTask($site))->initialize()->process();
+        $statistics = (new ProcessPaymentsTask())->initialize($site)->process();
         $io->writeln(sprintf(
             '- Site "%s": %d unprocessed, %d processed',
             $site->getIdentifier(),

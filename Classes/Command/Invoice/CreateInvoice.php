@@ -55,8 +55,8 @@ class CreateInvoice extends Command
             $invoiceDetails = $this->askInvoiceDetails($input, $output);
             $invoiceDetails['positions'] = $this->askPositionDetails($input, $output);
             $io->writeln("\nCreating invoice...");
-            $result = (new CreateInvoiceTask($this->site))
-                ->initialize((int)$input->getArgument('user'), $invoiceDetails)
+            $result = (new CreateInvoiceTask())
+                ->initialize($this->site, (int)$input->getArgument('user'), $invoiceDetails)
                 ->process();
             $io->writeln('Response:');
             /** @var FormatterHelper $formatter */

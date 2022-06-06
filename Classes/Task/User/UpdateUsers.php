@@ -15,6 +15,7 @@ use Buepro\Bexio\Dto\ContactDto;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
 use Buepro\Bexio\Task\User\Service\UpdateService;
+use TYPO3\CMS\Core\Site\Entity\Site;
 
 class UpdateUsers extends AbstractTask implements TaskInterface
 {
@@ -39,8 +40,9 @@ class UpdateUsers extends AbstractTask implements TaskInterface
 
     protected array $options = self::DEFAULT_OPTIONS;
 
-    public function initialize(array $options = self::DEFAULT_OPTIONS): TaskInterface
+    public function initialize(Site $site, array $options = self::DEFAULT_OPTIONS): TaskInterface
     {
+        parent::initialize($site);
         $this->options = array_merge(self::DEFAULT_OPTIONS, $options);
         $this->setInitialized();
         return $this;

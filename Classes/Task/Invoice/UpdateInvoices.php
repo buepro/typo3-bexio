@@ -15,6 +15,7 @@ use Buepro\Bexio\Domain\Model\Invoice;
 use Buepro\Bexio\Dto\InvoiceDto;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
+use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -28,8 +29,9 @@ class UpdateInvoices extends AbstractTask implements TaskInterface
     ];
     protected array $options = self::DEFAULT_OPTIONS;
 
-    public function initialize(array $options = self::DEFAULT_OPTIONS): TaskInterface
+    public function initialize(Site $site, array $options = self::DEFAULT_OPTIONS): TaskInterface
     {
+        parent::initialize($site);
         $this->options = $options;
         $this->initializeUserInvoiceElements();
         $this->setInitialized();

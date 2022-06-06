@@ -14,6 +14,7 @@ use Buepro\Bexio\Event\InvoicePaymentEvent;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -30,8 +31,9 @@ class ProcessPayments extends AbstractTask implements TaskInterface
 
     protected EventDispatcherInterface $eventDispatcher;
 
-    public function initialize(): TaskInterface
+    public function initialize(Site $site): TaskInterface
     {
+        parent::initialize($site);
         $this->initializeUserInvoiceElements();
         $this->setInitialized();
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);

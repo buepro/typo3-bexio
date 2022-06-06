@@ -68,7 +68,7 @@ linked bexio contact.'
 
     protected function processSite(Site $site, SymfonyStyle $io): void
     {
-        $statistics = (new UpdateUsersTask($site))->initialize($this->options)->process();
+        $statistics = (new UpdateUsersTask())->initialize($site, $this->options)->process();
         $io->writeln(sprintf(
             '- Site "%s": %d updated, %d new',
             $site->getIdentifier(),

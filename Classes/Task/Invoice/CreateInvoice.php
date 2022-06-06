@@ -15,14 +15,16 @@ use Buepro\Bexio\Service\InvoiceSiteService;
 use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class CreateInvoice extends AbstractTask implements TaskInterface
 {
     protected array $invoiceData = [];
 
-    public function initialize(int $userUid = 0, array $invoice = []): TaskInterface
+    public function initialize(Site $site, int $userUid = 0, array $invoice = []): TaskInterface
     {
+        parent::initialize($site);
         $this->setUserData($userUid)->setBaseData($invoice)->setPositionData($invoice);
         $this->setInitialized();
         return $this;

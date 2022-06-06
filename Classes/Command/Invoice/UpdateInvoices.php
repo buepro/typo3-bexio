@@ -60,7 +60,7 @@ emitted for invoices that were were not available in
 
     protected function processSite(Site $site, SymfonyStyle $io): void
     {
-        $statistics = (new UpdateInvoicesTask($site))->initialize($this->options)->process();
+        $statistics = (new UpdateInvoicesTask())->initialize($site, $this->options)->process();
         $io->writeln(sprintf(
             '- Site "%s": %d updated, %d new',
             $site->getIdentifier(),

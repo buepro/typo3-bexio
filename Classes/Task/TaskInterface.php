@@ -9,8 +9,10 @@
 
 namespace Buepro\Bexio\Task;
 
+use TYPO3\CMS\Core\Site\Entity\Site;
+
 interface TaskInterface
 {
-    public function initialize(): self;
+    public function initialize(Site $site): self;
     public function process(): array;
 }
