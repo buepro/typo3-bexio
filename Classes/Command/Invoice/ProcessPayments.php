@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ProcessPayments extends AbstractSitesCommand
 {
@@ -37,7 +38,9 @@ assigned yet by dispatching an event.'
 
     protected function processSite(Site $site, SymfonyStyle $io): void
     {
-        $statistics = (new ProcessPaymentsTask())->initialize($site)->process();
+        $statistics = GeneralUtility::makeInstance(ProcessPaymentsTask::class)
+            ->initialize($site)
+            ->process();
         $io->writeln(sprintf(
             '- Site "%s": %d unprocessed, %d processed',
             $site->getIdentifier(),

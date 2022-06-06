@@ -16,6 +16,10 @@ services:
   Buepro\Bexio\Service\ApiService:
     public: true
 
+  Buepro\Bexio\Task\Invoice\ProcessPayments:
+    public: true
+
+
   #
   # Invoice commands
   #

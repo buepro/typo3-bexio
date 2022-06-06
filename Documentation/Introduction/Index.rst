@@ -95,7 +95,9 @@ API
          'unitPrice' => 90,
       ],
    ];
-   $result = (new CreateInvoice())->initialize($site, $invoice)->process();
+   $result = GeneralUtility::makeInstance(CreateInvoice::class)
+      ->initialize($site, $invoice)
+      ->process();
 
 .. _introduction-prerequisites:
 

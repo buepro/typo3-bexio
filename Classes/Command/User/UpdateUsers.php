@@ -18,6 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UpdateUsers extends AbstractSitesCommand
 {
@@ -68,7 +69,9 @@ linked bexio contact.'
 
     protected function processSite(Site $site, SymfonyStyle $io): void
     {
-        $statistics = (new UpdateUsersTask())->initialize($site, $this->options)->process();
+        $statistics = GeneralUtility::makeInstance(UpdateUsersTask::class)
+            ->initialize($site, $this->options)
+            ->process();
         $io->writeln(sprintf(
             '- Site "%s": %d updated, %d new',
             $site->getIdentifier(),

@@ -55,7 +55,9 @@ User
    :caption: Update frontend users
 
    // use Buepro\Bexio\Task\User\UpdateUsers;
-   $result = (new UpdateUsers())->initialize($site)->process();
+   $result = GeneralUtility::makeInstance(UpdateUsers::class)
+      ->initialize($site)
+      ->process();
 
 .. code-block:: php
    :caption: Synchronize bexio contacts to frontend users
@@ -64,7 +66,9 @@ User
    $options = [
       UpdateUsers::OPTION_CREATE => true,
    ];
-   $result = (new UpdateUsers())->initialize($site, $options)->process();
+   $result = GeneralUtility::makeInstance(UpdateUsers::class)
+      ->initialize($site, $options)
+      ->process();
 
 .. _api-tasks-invoice:
 
@@ -84,18 +88,24 @@ Invoice
          'unitPrice' => 90,
       ],
    ];
-   $result = (new CreateInvoice())->initialize($site, $invoice)->process();
+   $result = GeneralUtility::makeInstance(CreateInvoice::class)
+      ->initialize($site, $invoice)
+      ->process();
 
 .. index:: API - Tasks; UpdateInvoices
 .. code-block:: php
    :caption: Update paid and get pending invoices
 
    // use Buepro\Bexio\Task\Invoice\UpdateInvoices;
-   $result = (new UpdateInvoices())->initialize($site)->process();
+   $result = GeneralUtility::makeInstance(UpdateInvoices::class)
+      ->initialize($site)
+      ->process();
 
 .. index:: API - Tasks; ProcessPayments
 .. code-block:: php
    :caption: Process invoice payments by emitting an event
 
    // use Buepro\Bexio\Task\Invoice\ProcessPayments;
-   $result = (new ProcessPayments())->initialize($site)->process();
+   $result = GeneralUtility::makeInstance(ProcessPaymentsTask::class)
+      ->initialize($site)
+      ->process();

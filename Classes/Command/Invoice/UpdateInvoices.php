@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class UpdateInvoices extends AbstractSitesCommand
 {
@@ -60,7 +61,9 @@ emitted for invoices that were were not available in
 
     protected function processSite(Site $site, SymfonyStyle $io): void
     {
-        $statistics = (new UpdateInvoicesTask())->initialize($site, $this->options)->process();
+        $statistics = GeneralUtility::makeInstance(UpdateInvoicesTask::class)
+            ->initialize($site, $this->options)
+            ->process();
         $io->writeln(sprintf(
             '- Site "%s": %d updated, %d new',
             $site->getIdentifier(),
