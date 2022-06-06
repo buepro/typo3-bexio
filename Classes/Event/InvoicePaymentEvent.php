@@ -32,6 +32,11 @@ final class InvoicePaymentEvent
         return $this->reprocessingRequested;
     }
 
+    /**
+     * Event handlers call this method to signal that something went wrong
+     * during their payment processing and that the event should be emitted
+     * again.
+     */
     public function requestReprocessing(): self
     {
         $this->reprocessingRequested = true;

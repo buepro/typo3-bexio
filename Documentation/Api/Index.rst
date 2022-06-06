@@ -109,3 +109,23 @@ Invoice
    $result = GeneralUtility::makeInstance(ProcessPaymentsTask::class)
       ->initialize($site)
       ->process();
+
+.. _api-events:
+
+Events
+======
+
+.. index:: API - Events; InvoicePaymentEvent
+.. _api-events-InvoicePaymentEvent:
+
+InvoicePaymentEvent
+-------------------
+
+:php:`\Buepro\Bexio\Event\InvoicePaymentEvent`
+
+Event to listen to after an invoice payment has been detected.
+
+:getInvoice(): Returns :php:`\Buepro\Bexio\Domain\Model\Invoice`
+:getReprocessingRequested(): Returns :php:`boolean` indicating that one event
+   handler requested this event to be emitted again.
+:requestProcessing(): Use this method to request this event to be emitted again.
