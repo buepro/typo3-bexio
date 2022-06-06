@@ -31,12 +31,16 @@ class ProcessPayments extends AbstractTask implements TaskInterface
 
     protected EventDispatcherInterface $eventDispatcher;
 
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     public function initialize(Site $site): TaskInterface
     {
         parent::initialize($site);
         $this->initializeUserInvoiceElements();
         $this->setInitialized();
-        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
         return $this;
     }
 
