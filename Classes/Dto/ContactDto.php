@@ -9,8 +9,8 @@
 
 namespace Buepro\Bexio\Dto;
 
+use Buepro\Bexio\Domain\Model\User;
 use Buepro\Bexio\Task\User\UpdateUsers;
-use TYPO3\CMS\Core\Database\Connection;
 
 class ContactDto
 {
@@ -40,13 +40,13 @@ class ContactDto
         'www' => 'url',
     ];
 
-    public const PROPERTY_FIELD_MAP = [
-        'id' => 'tx_bexio_id',
-        'companyId' => 'tx_bexio_company_id',
-        'languageId' => 'tx_bexio_language_id',
+    public const DTO_USER_MAP = [
+        'id' => 'bexioId',
+        'companyId' => 'bexioCompanyId',
+        'languageId' => 'bexioLanguageId',
         'company' => 'company',
-        'firstName' => 'first_name',
-        'lastName' => 'last_name',
+        'firstName' => 'firstName',
+        'lastName' => 'lastName',
         'address' => 'address',
         'zip' => 'zip',
         'city' => 'city',
@@ -54,22 +54,6 @@ class ContactDto
         'telephone' => 'telephone',
         'email' => 'email',
         'www' => 'www',
-    ];
-
-    public const PROPERTY_TYPE_MAP = [
-        'id' => Connection::PARAM_INT,
-        'companyId' => Connection::PARAM_INT,
-        'languageId' => Connection::PARAM_INT,
-        'company' => Connection::PARAM_STR,
-        'firstName' => Connection::PARAM_STR,
-        'lastName' => Connection::PARAM_STR,
-        'address' => Connection::PARAM_STR,
-        'zip' => Connection::PARAM_STR,
-        'city' => Connection::PARAM_STR,
-        'country' => Connection::PARAM_STR,
-        'telephone' => Connection::PARAM_STR,
-        'email' => Connection::PARAM_STR,
-        'www' => Connection::PARAM_STR,
     ];
 
     public static function createFromUnrelatedContact(\stdClass $contact, array $countryNames): self
@@ -147,32 +131,37 @@ class ContactDto
         return '';
     }
 
-    public function getUpdateData(array $user = [], bool $overwriteFields = false): array
+    /**
+     * @param string[] $propertyNames
+     * @return string[]
+     */
+    public function getProperties(array $propertyNames): array
     {
         $result = [];
-        foreach (array_keys(self::PROPERTY_TYPE_MAP) as $property) {
-            $fieldName = self::PROPERTY_FIELD_MAP[$property];
-            if (
-                $this->$property !== '' &&
-                $this->$property !== 0 &&
-                (!isset($user[$fieldName]) || ($user[$fieldName] === 0) || ($user[$fieldName] === '') || $overwriteFields)
-            ) {
-                $result[$fieldName] = $this->$property;
+        foreach ($propertyNames as $propertyName) {
+            if (method_exists($this, ($method = 'get' . ucfirst($propertyName)))) {
+                $result[$propertyName] = $this->$method();
             }
         }
         return $result;
     }
 
-    public function getUpdateTypes(array $data): array
+    public function updateUser(User $user, bool $overwrite = false): bool
     {
-        $result = [];
-        $fieldPropertyMap = array_flip(self::PROPERTY_FIELD_MAP);
-        foreach (array_keys($data) as $fieldName) {
-            if (($key = $fieldPropertyMap[$fieldName] ?? null) !== null) {
-                $result[] = self::PROPERTY_TYPE_MAP[$key];
-            }
+        $properties = [];
+        foreach (self::DTO_USER_MAP as $dtoProperty => $userProperty) {
+            $properties[$userProperty] = $this->$dtoProperty;
         }
-        return $result;
+        return $user->updateProperties($properties, $overwrite);
+    }
+
+    public function createUser(): User
+    {
+        $user = new User();
+        $this->updateUser($user);
+        $user->setUsername('bexio-' . md5((string)$this->getId()));
+        $user->setPassword(\Buepro\Bexio\Utility\GeneralUtility::getChallenge());
+        return $user;
     }
 
     public function getId(): int

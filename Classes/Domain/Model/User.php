@@ -15,6 +15,9 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class User extends AbstractEntity
 {
+    protected string $username = '';
+    protected string $password = '';
+    protected string $usergroup = '';
     protected string $firstName = '';
     protected string $lastName = '';
     protected string $address = '';
@@ -51,6 +54,39 @@ class User extends AbstractEntity
     public function initializeObject()
     {
         $this->bexioInvoices = $this->bexioInvoices ?? new ObjectStorage();
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setUsergroup(string $usergroup): self
+    {
+        $this->usergroup = $usergroup;
+        return $this;
+    }
+
+    public function getUsergroup(): string
+    {
+        return $this->usergroup;
     }
 
     public function setFirstName(string $firstName): self
@@ -219,5 +255,19 @@ class User extends AbstractEntity
     {
         $this->bexioInvoices = $bexioInvoices;
         return $this;
+    }
+
+    public function updateProperties(array $properties, bool $overwrite = false): bool
+    {
+        $result = false;
+        foreach ($properties as $name => $value) {
+            $property = &$this->$name;
+            if ($property !== $value && ($overwrite || !(bool)$property)) {
+                $property = $value;
+                $result = true;
+            }
+        }
+        unset($property);
+        return $result;
     }
 }

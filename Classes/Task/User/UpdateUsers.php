@@ -16,6 +16,8 @@ use Buepro\Bexio\Task\AbstractTask;
 use Buepro\Bexio\Task\TaskInterface;
 use Buepro\Bexio\Task\User\Service\UpdateService;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class UpdateUsers extends AbstractTask implements TaskInterface
 {
@@ -112,6 +114,7 @@ class UpdateUsers extends AbstractTask implements TaskInterface
         foreach ($contactDtos as $contactDto) {
             $updateUserService->processContactDto($contactDto);
         }
+        GeneralUtility::makeInstance(PersistenceManager::class)->persistAll();
         return $updateUserService->getStatistics();
     }
 }
