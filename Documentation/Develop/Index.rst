@@ -13,6 +13,20 @@ Site
 
 -  Create `Build/site/bexio/private.yaml` with bexio related properties
 
+Event handler
+=============
+
+Use the following `Services.yaml` configuration to test the `InvoicePayment`
+event listener:
+
+.. code-block:: yaml
+
+   Buepro\Bexio\EventListener\EmailInvoicePayment:
+     tags:
+       - name: event.listener
+         identifier: 'bexio-test-invoice-payment-event-listener'
+         event: Buepro\Bexio\Event\InvoicePaymentEvent
+
 Logging
 =======
 

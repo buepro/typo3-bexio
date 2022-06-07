@@ -125,7 +125,22 @@ InvoicePaymentEvent
 
 Event to listen to after an invoice payment has been detected.
 
-:getInvoice(): Returns :php:`\Buepro\Bexio\Domain\Model\Invoice`
-:getReprocessingRequested(): Returns :php:`boolean` indicating that one event
+:getSite(): Returns the :php:`TYPO3\CMS\Core\Site\Entity\Site` the invoice belongs to.
+:getInvoice(): Returns the :php:`\Buepro\Bexio\Domain\Model\Invoice` that has been paid.
+:requestProcessing(string $reason): Use this method to request this event to be emitted again.
+:getReprocessingRequested(): Returns :php:`boolean` indicating that one event.
    handler requested this event to be emitted again.
-:requestProcessing(): Use this method to request this event to be emitted again.
+:getReprocessingRequestReasons(): Returns a string array. Each event handler can add its reason.
+
+.. _api-event-listeners:
+
+Event listeners
+===============
+
+.. index:: API - Event listeners; EmailInvoicePayment
+.. _api-event-listeners-EmailInvoicePayment:
+
+EmailInvoicePayment
+-------------------
+
+:php:`\Buepro\Bexio\EventListener\EmailInvoicePayment`

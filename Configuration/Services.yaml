@@ -19,7 +19,6 @@ services:
   Buepro\Bexio\Task\Invoice\ProcessPayments:
     public: true
 
-
   #
   # Invoice commands
   #

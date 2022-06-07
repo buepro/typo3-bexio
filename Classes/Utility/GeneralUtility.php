@@ -16,4 +16,15 @@ class GeneralUtility
     {
         return substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$'), 0, $length);
     }
+
+    public static function toString(mixed $value): string
+    {
+        if ($value instanceof \DateTime) {
+            return $value->format(\DateTimeInterface::W3C);
+        }
+        if (is_float($value)) {
+            return sprintf('%.2f', $value);
+        }
+        return (string) $value;
+    }
 }

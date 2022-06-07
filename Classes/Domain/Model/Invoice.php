@@ -19,6 +19,10 @@ class Invoice extends AbstractEntity
     public const STATUS_PAID = 9;
     public const STATUS_CANCELLED = 19;
 
+    protected const PROPERTIES = ['id', 'user', 'title', 'documentNr', 'languageId', 'bankAccountId', 'currencyId',
+        'total', 'isValidFrom', 'isValidTo', 'kbItemStatusId', 'reference', 'apiReference', 'viewedByClientAt',
+        'esrId', 'qrInvoiceId', 'networkLink', 'paymentProcessTime'];
+
     protected int $id = 0;
     protected ?User $user = null;
     protected string $title = '';
@@ -243,5 +247,14 @@ class Invoice extends AbstractEntity
     public function getPaymentProcessTime(): \DateTime
     {
         return $this->paymentProcessTime ?? (new \DateTime())->setTimestamp(0);
+    }
+
+    public function toArray(): array
+    {
+        $result = [];
+        foreach (self::PROPERTIES as $property) {
+            $result[$property] = $this->$property;
+        }
+        return $result;
     }
 }

@@ -15,10 +15,11 @@ Site configuration
        clientId: 11111111-1111-1111-11111111111111111
        clientSecret: aaaaaaaaaaaaaaaaaaaa-aaaaa-aaaaaaaaaa-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
        scopes: ['openid', 'profile', 'contact_edit', 'offline_access', 'kb_invoice_edit', 'bank_payment_edit']
-     user:
-       storageUid: 2
-       userGroupUid: 1
-       linkMatchProperties: firstName, lastName, email
+     eventListener:
+       emailInvoicePayment:
+         to:
+           email: bookkeeping@bexio.ddev.site
+           name: 'Hans Dampf'
      invoice:
        storageUid: 3
        new:
@@ -33,6 +34,10 @@ Site configuration
            accountId: 278
            taxId: 16
            type: KbPositionCustom
+     user:
+       storageUid: 2
+       userGroupUid: 1
+       linkMatchProperties: firstName, lastName, email
 
 .. _config-site-auth:
 
@@ -228,7 +233,7 @@ invoice.storageUid
 .. container:: table-row
 
    Property
-      invoice.storageUid
+      bexio.invoice.storageUid
 
    Data type
       int/string
@@ -236,3 +241,52 @@ invoice.storageUid
    Description
       Coma separated list of uid's from pages where invoices are located. The
       first item is used to store new records.
+
+.. _config-site-event-listeners:
+
+Event listeners
+===============
+
+.. code-block:: yaml
+   :caption: Event listeners related properties
+
+   bexio:
+     eventListener:
+       emailInvoicePayment:
+         to:
+           email: 'bookkeeping@bexio.ddev.site'
+           name: 'Hans Dampf'
+
+.. index:: Site config - Event listeners; emailInvoicePayment
+.. _config-site-event-listeners-emailInvoicePayment:
+
+EmailInvoicePayments
+--------------------
+
+to.email
+~~~~~~~~
+
+.. container:: table-row
+
+   Property
+      bexio.eventListener.emailInvoicePayment.to.email
+
+   Data type
+      string
+
+   Description
+      Email address used in `EmailInvoicePayment` event listener.
+
+to.name
+~~~~~~~
+
+.. container:: table-row
+
+   Property
+      bexio.eventListener.emailInvoicePayment.to.name
+
+   Data type
+      string
+
+   Description
+      Email name used in `EmailInvoicePayment` event listener.

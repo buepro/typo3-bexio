@@ -21,6 +21,11 @@ parameters:
 			path: ../Classes/Command/Other/Settings.php
 
 		-
+			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\)\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/Invoice.php
+
+		-
 			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Domain\\\\Model\\\\User\\)\\.$#"
 			count: 1
 			path: ../Classes/Domain/Model/User.php
@@ -49,6 +54,11 @@ parameters:
 			message: "#^Variable method call on Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\.$#"
 			count: 5
 			path: ../Classes/Dto/InvoiceDto.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between array and null will always evaluate to false\\.$#"
+			count: 1
+			path: ../Classes/EventListener/EmailInvoicePayment.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:getReprocessingRequested\\(\\)\\.$#"

@@ -257,6 +257,18 @@ class User extends AbstractEntity
         return $this;
     }
 
+    public function getScreenName(): string
+    {
+        $parts = [];
+        if ($this->getCompany() !== '') {
+            $parts[] = $this->getCompany();
+        }
+        if (($name = trim($this->getFirstName() . ' ' . $this->getLastName())) !== '') {
+            $parts[] = $name;
+        }
+        return implode(', ', $parts);
+    }
+
     public function updateProperties(array $properties, bool $overwrite = false): bool
     {
         $result = false;
