@@ -26,8 +26,7 @@ class UpdateInvoices extends AbstractSitesCommand
     {
         $this
             ->setDescription(
-                'Update local invoices and emit events on state changes. Invoices in "Pending"
-state will be created locally.'
+                'Update local invoices. Invoices in "Pending" state will be created locally.'
             )
             ->addOption(
                 'from',
