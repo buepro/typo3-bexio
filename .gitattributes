@@ -7,6 +7,8 @@
 
 # Files
 /composer.lock export-ignore
+/composer-dev.json export-ignore
+/composer-dev.lock export-ignore
 
 # Enforce checkout with linux lf consistent over all plattforms
 *.xml text eol=lf
