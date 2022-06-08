@@ -1,6 +1,6 @@
 {
 	"name": "buepro/typo3-bexio",
-	"description": "Provides a client for the Bexio API by extending the client from the package onlime/bexio-api-client",
+	"description": "Provides console commands and an API to interact with Bexio resources and emits events when invoices get paid.",
 	"license": "GPL-2.0-or-later",
 	"type": "typo3-cms-extension",
 	"keywords": [

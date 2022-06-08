@@ -9,10 +9,10 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title'            => 'Bexio',
-    'description'      => 'Provides a client for the Bexio API by extending the client from the package onlime/bexio-api-client',
+    'description'      => 'Provides console commands and an API to interact with Bexio resources and emits events when invoices get paid.',
     'category'         => 'backend',
-    'version'          => '0.1.1-dev',
-    'state'            => 'beta',
+    'version'          => '1.0.0',
+    'state'            => 'stable',
     'clearCacheOnLoad' => 1,
     'author'           => 'Roman Büchler',
     'author_email'     => 'rb@buechler.pro',
