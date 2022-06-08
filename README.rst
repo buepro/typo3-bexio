@@ -27,7 +27,7 @@ TYPO3 extension ``bexio``
 The extension provides console commands as well as an API for other TYPO3
 extensions to interact with the book keeping app from
 `bexio <https://www.bexio.com>`__. It supports tasks to manage users and
-invoices.
+invoices and emits events when invoices have been paid.
 
 **ATTENTION:** The extension can only be used on composer installations.
 

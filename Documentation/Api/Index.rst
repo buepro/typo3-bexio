@@ -144,3 +144,14 @@ EmailInvoicePayment
 -------------------
 
 :php:`\Buepro\Bexio\EventListener\EmailInvoicePayment`
+
+To use this event listener add the following to `Configuration/Services.yaml`:
+
+.. code-block:: yaml
+
+   services:
+     Buepro\Bexio\EventListener\EmailInvoicePayment:
+       tags:
+         - name: event.listener
+           identifier: 'bexio-email-invoice-payment-event-listener'
+           event: Buepro\Bexio\Event\InvoicePaymentEvent

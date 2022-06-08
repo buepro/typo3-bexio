@@ -26,26 +26,16 @@
 Introduction
 ============
 
-This extension provides a client for the `Bexio API <https://docs.bexio.com/>`__
-by extending the client from the package
-`onlime/bexio-api-client <https://github.com/onlime/bexio-api-client>`__.
-
 .. _introduction-usage:
 
 Usage
 =====
 
-Following these steps to interact with the bexio api:
-
-#. Carry out the setup as outlined in the :ref:`administration <admin>`
-   and :ref:`configuration manual <config>`.
-
-#. Authenticate the usage by loading the authentication url
-   (`https://your-domain.ch/bexio-auth-your_challange`). You will be redirected
-   to the bexio authentication server. Upon successful authentication a tokens
-   file will be obtained.
-
-#. Interact with the bexio api through the console or the API.
+After completing the setup as outlined in the :ref:`administration <admin>`
+and :ref:`site configuration manual <config-site>` the console as well as the
+API can be used to interact with the bexio resources. Following a view samples
+are shown to demonstrate the usage. The complete functional reference can be
+found in the :ref:`user <user>` and the :ref:`API manual <api>`.
 
 .. _introduction-usage-console:
 
@@ -56,6 +46,12 @@ Console
    :caption: Update all frontend users that are already linked to a bexio contact
 
    path/to/bin/typo3 bexio:updateusers
+
+.. index:: Command; bexio:processpayments
+.. code-block:: shell
+   :caption: Process invoice payments by emitting an event
+
+   path/to/bin/typo3 bexio:processpayments
 
 .. _introduction-usage-api:
 

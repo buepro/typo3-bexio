@@ -16,5 +16,4 @@ languages:
 rootPageId: 1
 websiteTitle: ''
 imports:
-  -
-    resource: ./bexio/private.yaml
+  - { resource: './bexio/site.yaml' }

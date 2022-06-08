@@ -6,6 +6,11 @@
 Site configuration
 ==================
 
+.. note::
+
+   For changes made in the site configuration to take effect the cache has to
+   be cleared.
+
 .. code-block:: yaml
    :caption: Example site configuration for bexio related properties
 
@@ -89,7 +94,7 @@ clientId
 
    Description
       The client ID provided by the bexio web site (see
-      :ref:`Admin - Bexio <config-bexio>`)
+      :ref:`Admin - Create an app <admin>`)
 
 .. index:: Site config - Authentication; clientSecret
 .. _config-site-auth-clientSecret:
@@ -107,7 +112,7 @@ clientSecret
 
    Description
       The client secret provided by the bexio web site (see
-      :ref:`Admin - Bexio <config-bexio>`)
+      :ref:`Admin - Create an app <admin>`)
 
 .. index:: Site config - Authentication; scopes
 .. _config-site-auth-scopes:
