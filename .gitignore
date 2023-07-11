@@ -1,11 +1,13 @@
 # Folders
-.build/
-.idea/
-Build/site/bexio/
-Documentation-GENERATED-temp/
-Documentation/Develop/Payload/Private/
+/.build/
+/.idea/
+/Build/node_modules/
+/Build/site/development/bexio/
+/config/
+/Documentation-GENERATED-temp/
+/Documentation/Develop/Payload/Private/
+/var/
 
 # Files
 *.cache
 *.zip
-Build/node_modules

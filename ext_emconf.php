@@ -11,15 +11,14 @@ $EM_CONF[$_EXTKEY] = [
     'title'            => 'Bexio',
     'description'      => 'Provides console commands and an API to interact with Bexio resources and emits events when invoices get paid.',
     'category'         => 'backend',
-    'version'          => '1.0.1-dev',
+    'version'          => '2.0.0-dev',
     'state'            => 'stable',
     'clearCacheOnLoad' => 1,
     'author'           => 'Roman Büchler',
     'author_email'     => 'rb@buechler.pro',
     'constraints'      => [
         'depends'   => [
-            'php'    => '8.0.0-8.0.99',
-            'typo3'  => '11.5.9-11.5.99',
+            'typo3'  => '12.4.0-12.4.99',
         ],
         'conflicts' => [
         ],
