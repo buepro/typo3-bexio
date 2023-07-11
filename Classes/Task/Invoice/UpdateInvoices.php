@@ -95,6 +95,7 @@ class UpdateInvoices extends AbstractTask implements TaskInterface
             }
             if (
                 !$statusCheck ||
+                /** @extensionScannerIgnoreLine */
                 isset($indexedLocalInvoices[$remoteInvoice->id]) ||
                 ($bexioId = $remoteInvoice->contact_sub_id ?? $remoteInvoice->contact_id ?? null) === null ||
                 ($user = $this->userRepository->findByBexioId($bexioId)->getFirst()) === null
@@ -125,9 +126,11 @@ class UpdateInvoices extends AbstractTask implements TaskInterface
         $sinceInvoices = $invoiceResource->searchInvoices([$constraint], $queryParams);
         $indexedInvoices = [];
         foreach ($pendingInvoices as $invoice) {
+            /** @extensionScannerIgnoreLine */
             $indexedInvoices[$invoice->id] = $invoice;
         }
         foreach ($sinceInvoices as $invoice) {
+            /** @extensionScannerIgnoreLine */
             $indexedInvoices[$invoice->id] = $invoice;
         }
         return $indexedInvoices;

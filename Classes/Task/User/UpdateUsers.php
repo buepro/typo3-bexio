@@ -62,6 +62,7 @@ class UpdateUsers extends AbstractTask implements TaskInterface
         }
         $countryNames = [];
         foreach ($countries as $country) {
+            /** @extensionScannerIgnoreLine */
             $countryNames[$country->id] = $country->name;
         }
         $bookkeepingContacts = $this->compileBookkeepingContacts($contacts, $relations, $countryNames);
@@ -81,6 +82,7 @@ class UpdateUsers extends AbstractTask implements TaskInterface
     {
         $indexedContacts = [];
         foreach ($contacts as $contact) {
+            /** @extensionScannerIgnoreLine */
             $indexedContacts[$contact->id] = $contact;
         }
         $relatedContacts = $relatedCompanies = [];
@@ -94,10 +96,12 @@ class UpdateUsers extends AbstractTask implements TaskInterface
         $unrelatedContacts = array_diff_key($indexedContacts, $relatedContacts, $relatedCompanies);
         $result = [];
         foreach ($unrelatedContacts as $contact) {
+            /** @extensionScannerIgnoreLine */
             $result[$contact->id] = ContactDto::createFromUnrelatedContact($contact, $countryNames);
         }
         foreach ($relatedContacts as $contact) {
             if (($dto = ContactDto::createFromRelatedContact($contact, $countryNames)) !== null) {
+                /** @extensionScannerIgnoreLine */
                 $result[$contact[self::RELATED_CONTACT_PERSON]->id] = $dto;
             }
         }

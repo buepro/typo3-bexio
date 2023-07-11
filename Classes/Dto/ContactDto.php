@@ -61,6 +61,7 @@ class ContactDto
         $dto = new self();
         self::assignStandardProperties($dto, $contact);
         self::assignAdvancedProperties($dto, $contact, $countryNames);
+        /** @extensionScannerIgnoreLine */
         $dto->id = $contact->id;
         return $dto;
     }
@@ -82,7 +83,9 @@ class ContactDto
         $dto = self::createFromUnrelatedContact($company, $countryNames);
         self::assignStandardProperties($dto, $person);
         self::assignAdvancedProperties($dto, $person, $countryNames);
+        /** @extensionScannerIgnoreLine */
         $dto->id = $person->id;
+        /** @extensionScannerIgnoreLine */
         $dto->companyId = $company->id;
         return $dto;
     }
@@ -166,6 +169,7 @@ class ContactDto
 
     public function getId(): int
     {
+        /** @extensionScannerIgnoreLine */
         return $this->id;
     }
 

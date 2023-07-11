@@ -65,6 +65,7 @@ class CreateInvoice extends Command
             $io->writeln($formatter->formatBlock(explode("\n", (string)$result), 'info'));
             return Command::SUCCESS;
         } catch (\Exception $e) {
+            /** @extensionScannerIgnoreLine */
             $io->error($e->getMessage());
             return Command::FAILURE;
         }

@@ -96,6 +96,7 @@ Without this option no arguments will be passed to the method.'
             $io->writeln($formatter->formatBlock(explode("\n", $result), 'info'));
             return Command::SUCCESS;
         } catch (\Exception $e) {
+            /** @extensionScannerIgnoreLine */
             $io->error(sprintf('%s (%d)', $e->getMessage(), (int)$e->getCode()));
             return Command::FAILURE;
         }

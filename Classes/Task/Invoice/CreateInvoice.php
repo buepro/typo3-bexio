@@ -35,6 +35,7 @@ class CreateInvoice extends AbstractTask implements TaskInterface
         $this->assertInitialized();
         $invoiceResource = new Invoice($this->apiClient);
         $response = $invoiceResource->createInvoice($this->invoiceData);
+        /** @extensionScannerIgnoreLine */
         $invoiceId = $response->id;
         $invoiceResource->issueInvoice($invoiceId);
         $response = $invoiceResource->getInvoice($invoiceId);

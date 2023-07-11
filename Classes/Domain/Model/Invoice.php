@@ -53,11 +53,13 @@ class Invoice extends AbstractEntity
 
     public function getId(): int
     {
+        /** @extensionScannerIgnoreLine */
         return $this->id;
     }
 
     public function setId(int $id): self
     {
+        /** @extensionScannerIgnoreLine */
         $this->id = $id;
         return $this;
     }
