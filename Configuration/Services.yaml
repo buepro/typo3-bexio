@@ -30,26 +30,20 @@ services:
       -
         name: 'console.command'
         command: 'bexio:createinvoice'
+        description: 'Create an invoice for a site and a user.'
 
   Buepro\Bexio\Command\Invoice\ProcessPayments:
     tags:
       - name: 'console.command'
         command: 'bexio:processpayments'
+        description: 'Process all invoices that are payed but not processed yet.'
 
   Buepro\Bexio\Command\Invoice\UpdateInvoices:
     tags:
       -
         name: 'console.command'
         command: 'bexio:updateinvoices'
-
-  #
-  # User commands
-  #
-  Buepro\Bexio\Command\User\UpdateUsers:
-    tags:
-      -
-        name: 'console.command'
-        command: 'bexio:updateusers'
+        description: 'Update local invoices.'
 
   #
   # Other commands
@@ -59,8 +53,20 @@ services:
       -
         name: 'console.command'
         command: 'bexio:query'
+        description: 'Query an api endpoint and print the result in json format.'
 
   Buepro\Bexio\Command\Other\Settings:
     tags:
       - name: 'console.command'
         command: 'bexio:settings'
+        description: 'Get bexio settings like currencies, bank accounts, languages, payment types, taxes and users.'
+
+  #
+  # User commands
+  #
+  Buepro\Bexio\Command\User\UpdateUsers:
+    tags:
+      -
+        name: 'console.command'
+        command: 'bexio:updateusers'
+        description: 'Update users with data from bexio contacts.'

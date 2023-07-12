@@ -29,9 +29,6 @@ class Query extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription(
-                'Query an api endpoint and print the result in json format.'
-            )
             ->addOption(
                 'with-arguments',
                 'a',

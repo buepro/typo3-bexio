@@ -22,11 +22,10 @@ class ProcessPayments extends AbstractSitesCommand
 {
     protected function configure(): void
     {
-        $this
-            ->setDescription(
-                'Process all invoices that are payed but don\'t have a payment process time
+        $this->setHelp(
+            'Process all invoices that are payed but don\'t have a payment process time
 assigned yet by dispatching an event.'
-            );
+        );
         parent::configure();
     }
 

@@ -26,9 +26,7 @@ class UpdateInvoices extends AbstractSitesCommand
     protected function configure(): void
     {
         $this
-            ->setDescription(
-                'Update local invoices. Invoices in "Pending" state will be created locally.'
-            )
+            ->setHelp('Invoices in "Pending" state will be created locally.')
             ->addOption(
                 'from',
                 'f',

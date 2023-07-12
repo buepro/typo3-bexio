@@ -28,10 +28,7 @@ class UpdateUsers extends AbstractSitesCommand
     protected function configure(): void
     {
         $this
-            ->setDescription(
-                'Update users with data from bexio contacts. Just empty fields from already
-linked users will be updated.'
-            )
+            ->setHelp('Just empty fields from already linked users will be updated.')
             ->addOption(
                 'create',
                 'c',

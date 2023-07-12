@@ -33,9 +33,6 @@ class CreateInvoice extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription(
-                'Create an invoice.'
-            )
             ->addArgument(
                 'site',
                 InputArgument::REQUIRED,

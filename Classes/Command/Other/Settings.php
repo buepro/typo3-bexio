@@ -33,10 +33,6 @@ class Settings extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription(
-                'Get bexio settings like currencies, bank accounts, languages, payment types,
-taxes and users.'
-            )
             ->addOption(
                 'file',
                 'f',
