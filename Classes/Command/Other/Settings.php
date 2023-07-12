@@ -56,14 +56,16 @@ taxes and users.'
         $io->writeln('Getting bexio settings...');
         try {
             $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-            $this->site = $siteFinder->getSiteByIdentifier((string)$input->getArgument('site'));
+            /** @var string $siteIdentifier */
+            $siteIdentifier = $input->getArgument('site');
+            $this->site = $siteFinder->getSiteByIdentifier($siteIdentifier);
             $settings = $this->getSettings();
             $result = json_encode($settings, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT| JSON_THROW_ON_ERROR);
             if (
-                ($file = $input->getOption('file')) !== null &&
-                is_array($result = json_decode($result, true))
+                is_string($file = $input->getOption('file')) &&
+                is_array($resultArray = json_decode($result, true)) &&
+                file_put_contents($file, Yaml::dump($resultArray, 10, 2)) !== false
             ) {
-                file_put_contents($file, Yaml::dump($result, 10, 2));
                 $io->writeln('Response written to file "' . $file . '"');
                 return Command::SUCCESS;
             }
@@ -85,11 +87,13 @@ taxes and users.'
         $accountingResource = new Accounting($client);
         $bankingResource = new Banking($client);
         $otherResource = new Other($client);
+        /** @var \stdClass[] $taxes */
+        $taxes = is_array($taxes = $accountingResource->getTaxes()) ? $taxes : [];
         return [
             'accounting' => [
                 'currencies' => $this->mapResponse($accountingResource->getCurrencies(), 'id', 'name'),
                 'taxes' => $this->mapResponse(
-                    array_filter($accountingResource->getTaxes(), static fn ($item) => $item->is_active === true),
+                    array_filter($taxes, static fn ($item) => $item->is_active === true),
                     'id',
                     'display_name'
                 )
@@ -105,9 +109,12 @@ taxes and users.'
         ];
     }
 
-    protected function mapResponse(array $response, string $keyProperty, string $valueProperties): array
+    protected function mapResponse(mixed $response, string $keyProperty, string $valueProperties): array
     {
         $result = [];
+        if (!is_array($response)) {
+            return $result;
+        }
         $valueProperties = GeneralUtility::trimExplode(',', $valueProperties, true);
         foreach ($response as $item) {
             $values = array_map(static fn ($p) => $item->$p, $valueProperties);

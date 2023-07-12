@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class UpdateService
 {
     protected array $options;
-    /** @var int[] */
+    /** @var int<0, max>[] */
     protected array $storageUids = [0];
     protected string $userGroupUids = '';
     protected array $linkMatchProperties = ['email'];
@@ -33,7 +33,10 @@ class UpdateService
         $this->options = $options;
         $config = $site->getConfiguration()['bexio']['user'] ?? [];
         $storageUid = (string)($config['storageUid'] ?? '0');
-        $this->storageUids = GeneralUtility::intExplode(',', $storageUid, true);
+        $this->storageUids = array_filter(
+            GeneralUtility::intExplode(',', $storageUid, true),
+            fn ($v) => $v >= 0
+        );
         $userGroupUid = trim((string)($config['userGroupUid'] ?? ''));
         if ($userGroupUid !== '') {
             $this->userGroupUids = implode(',', GeneralUtility::intExplode(',', $userGroupUid, true));
@@ -74,7 +77,8 @@ class UpdateService
 
     protected function getUserForDto(ContactDto $dto): ?User
     {
-        $user = $this->userRepository->findByBexioId($dto->getId())->getFirst();
+        /** @var ?User $user */
+        $user = $this->userRepository->findOneBy(['bexioId' => $dto->getId()]);
         if ($user === null) {
             $user = $this->userRepository->findOneByProperties($dto->getProperties($this->linkMatchProperties));
         }

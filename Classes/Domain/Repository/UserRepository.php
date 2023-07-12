@@ -21,7 +21,8 @@ class UserRepository extends AbstractRepository
         foreach ($properties as $property => $value) {
             $constraints[] = $query->equals($property, $value);
         }
-        $users = $query->matching($query->logicalAnd($constraints))->execute()->toArray();
+        /** @var User[] $users */
+        $users = $query->matching($query->logicalAnd(...$constraints))->execute()->toArray();
         if (count($users) === 1) {
             return $users[0];
         }

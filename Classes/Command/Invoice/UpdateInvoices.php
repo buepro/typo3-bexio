@@ -52,8 +52,11 @@ emitted for invoices that were were not available in
         $io = new SymfonyStyle($input, $output);
         $io->writeln('Updating local invoices...');
         $this->options['include-paid'] = $input->getOption('include-paid');
-        if ($input->getOption('from') !== null) {
-            $this->options['from'] = (new \DateTime())->setTimestamp(strtotime($input->getOption('from')));
+        if (
+            is_string($from = $input->getOption('from')) &&
+            is_int($timestamp = strtotime($from))
+        ) {
+            $this->options['from'] = (new \DateTime())->setTimestamp($timestamp);
         }
         return $this->processSites($input, $output);
     }

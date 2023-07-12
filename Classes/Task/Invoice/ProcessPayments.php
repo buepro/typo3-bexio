@@ -51,7 +51,8 @@ class ProcessPayments extends AbstractTask implements TaskInterface
         $invoices = $this->invoiceRepository->findAllForPaymentProcessing();
         foreach ($invoices as $invoice) {
             $event = new InvoicePaymentEvent($this->site, $invoice);
-            if ($this->eventDispatcher->dispatch($event)->getReprocessingRequested()) {
+            $this->eventDispatcher->dispatch($event);
+            if ($event->getReprocessingRequested()) {
                 $result[self::PROCESS_RESULT_UNPROCESSED]++;
                 continue;
             }

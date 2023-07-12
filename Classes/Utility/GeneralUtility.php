@@ -19,12 +19,18 @@ class GeneralUtility
 
     public static function toString(mixed $value): string
     {
-        if ($value instanceof \DateTime) {
-            return $value->format(\DateTimeInterface::W3C);
+        if (is_string($value)) {
+            return $value;
+        }
+        if (is_int($value)) {
+            return (string) $value;
         }
         if (is_float($value)) {
             return sprintf('%.2f', $value);
         }
-        return (string) $value;
+        if ($value instanceof \DateTime) {
+            return $value->format(\DateTimeInterface::W3C);
+        }
+        return '';
     }
 }

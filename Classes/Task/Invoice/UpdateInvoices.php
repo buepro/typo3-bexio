@@ -112,27 +112,39 @@ class UpdateInvoices extends AbstractTask implements TaskInterface
 
     /**
      * Get all remote invoices with pending state OR that are younger
-     * than specified by $since.
+     * than specified by $since. The array key is the invoice id.
      *
      * @return \stdClass[]
      */
     protected function getRemoteInvoices(\DateTime $since): array
     {
+        $result = $this->getRemoteInvoicesForConstraint(['field' => 'kb_item_status_id', 'value' => Invoice::STATUS_OPEN, 'criteria' => '=']);
+        $youngInvoices = $this->getRemoteInvoicesForConstraint(['field' => 'is_valid_from', 'value' => $since->format('Y-m-d'), 'criteria' => '>']);
+        foreach ($youngInvoices as $key => $value) {
+            $result[$key] = $value;
+        }
+        return $result;
+    }
+
+    /**
+     * @return \stdClass[]
+     */
+    private function getRemoteInvoicesForConstraint(
+        array $constraint,
+        array $queryParams = ['order_by=is_valid_from']
+    ): array {
         $invoiceResource = new InvoiceResource($this->apiClient);
-        $constraint = ['field' => 'kb_item_status_id', 'value' => Invoice::STATUS_OPEN, 'criteria' => '='];
-        $queryParams = ['order_by=is_valid_from'];
-        $pendingInvoices = $invoiceResource->searchInvoices([$constraint], $queryParams);
-        $constraint = ['field' => 'is_valid_from', 'value' => $since->format('Y-m-d'), 'criteria' => '>'];
-        $sinceInvoices = $invoiceResource->searchInvoices([$constraint], $queryParams);
-        $indexedInvoices = [];
-        foreach ($pendingInvoices as $invoice) {
-            /** @extensionScannerIgnoreLine */
-            $indexedInvoices[$invoice->id] = $invoice;
+        $result = [];
+        $invoices = $invoiceResource->searchInvoices([$constraint], $queryParams);
+        if (!is_iterable($invoices)) {
+            return $result;
         }
-        foreach ($sinceInvoices as $invoice) {
-            /** @extensionScannerIgnoreLine */
-            $indexedInvoices[$invoice->id] = $invoice;
+        foreach ($invoices as $invoice) {
+            if ($invoice instanceof \stdClass) {
+                /** @extensionScannerIgnoreLine */
+                $result[$invoice->id] = $invoice;
+            }
         }
-        return $indexedInvoices;
+        return $result;
     }
 }

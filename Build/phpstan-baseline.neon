@@ -1,69 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Variable method call on mixed\\.$#"
+			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
-			path: ../Classes/Command/Other/Query.php
+			path: ../Classes/Command/Invoice/CreateInvoice.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with mixed will always evaluate to false\\.$#"
-			count: 1
-			path: ../Classes/Command/Other/Settings.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: ../Classes/Command/Other/Settings.php
-
-		-
-			message: "#^Variable property access on mixed\\.$#"
-			count: 2
-			path: ../Classes/Command/Other/Settings.php
-
-		-
-			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\)\\.$#"
-			count: 1
-			path: ../Classes/Domain/Model/Invoice.php
-
-		-
-			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Domain\\\\Model\\\\User\\)\\.$#"
+			message: "#^Property Buepro\\\\Bexio\\\\Domain\\\\Model\\\\User\\:\\:\\$bexioInvoices \\(TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage\\<Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\>\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: ../Classes/Domain/Model/User.php
 
 		-
-			message: "#^Method TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\QueryInterface\\:\\:logicalAnd\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			message: "#^Method Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\:\\:findAllForPaymentProcessing\\(\\) should return array\\<Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\> but returns array\\<int, object\\>\\.$#"
 			count: 1
 			path: ../Classes/Domain/Repository/InvoiceRepository.php
 
 		-
-			message: "#^Variable method call on \\$this\\(Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\)\\.$#"
+			message: "#^Method Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\:\\:findAllPending\\(\\) should return array\\<Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\> but returns array\\<int, object\\>\\.$#"
 			count: 1
-			path: ../Classes/Dto/ContactDto.php
-
-		-
-			message: "#^Variable property access on \\$this\\(Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\)\\.$#"
-			count: 1
-			path: ../Classes/Dto/ContactDto.php
-
-		-
-			message: "#^Variable property access on Buepro\\\\Bexio\\\\Dto\\\\ContactDto\\.$#"
-			count: 1
-			path: ../Classes/Dto/ContactDto.php
-
-		-
-			message: "#^Variable method call on Buepro\\\\Bexio\\\\Domain\\\\Model\\\\Invoice\\.$#"
-			count: 5
-			path: ../Classes/Dto/InvoiceDto.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between array and null will always evaluate to false\\.$#"
-			count: 1
-			path: ../Classes/EventListener/EmailInvoicePayment.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:getReprocessingRequested\\(\\)\\.$#"
-			count: 1
-			path: ../Classes/Task/Invoice/ProcessPayments.php
+			path: ../Classes/Domain/Repository/InvoiceRepository.php
 
 		-
 			message: "#^Cannot call method findAllForPaymentProcessing\\(\\) on Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\InvoiceRepository\\|null\\.$#"
@@ -95,8 +50,4 @@ parameters:
 			count: 1
 			path: ../Classes/Task/Invoice/UpdateInvoices.php
 
-		-
-			message: "#^Call to an undefined method Buepro\\\\Bexio\\\\Domain\\\\Repository\\\\UserRepository\\:\\:findByBexioId\\(\\)\\.$#"
-			count: 1
-			path: ../Classes/Task/User/Service/UpdateService.php
 

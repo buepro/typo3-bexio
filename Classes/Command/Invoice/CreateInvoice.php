@@ -14,6 +14,7 @@ use Buepro\Bexio\Service\InvoiceSiteService;
 use Buepro\Bexio\Task\Invoice\CreateInvoice as CreateInvoiceTask;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,6 +24,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 
 class CreateInvoice extends Command
 {
@@ -48,15 +50,20 @@ class CreateInvoice extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
         try {
+            $io = new SymfonyStyle($input, $output);
             $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-            $this->site = $siteFinder->getSiteByIdentifier((string)$input->getArgument('site'));
+            /** @var string $siteIdentifier */
+            $siteIdentifier = $input->getArgument('site');
+            $this->site = $siteFinder->getSiteByIdentifier($siteIdentifier);
             $invoiceDetails = $this->askInvoiceDetails($input, $output);
             $invoiceDetails['positions'] = $this->askPositionDetails($input, $output);
+            if (!MathUtility::canBeInterpretedAsInteger($userUidArgument = $input->getArgument('user'))) {
+                throw new \InvalidArgumentException('User uid is incorrect', 1689143805);
+            }
             $io->writeln("\nCreating invoice...");
             $result = GeneralUtility::makeInstance(CreateInvoiceTask::class)
-                ->initialize($this->site, (int)$input->getArgument('user'), $invoiceDetails)
+                ->initialize($this->site, MathUtility::convertToPositiveInteger((int)$userUidArgument), $invoiceDetails)
                 ->process();
             $io->writeln('Response:');
             /** @var FormatterHelper $formatter */
@@ -84,6 +91,7 @@ class CreateInvoice extends Command
     {
         $details = [];
         $invoiceService = new InvoiceSiteService($this->site);
+        /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
         $addPositionQuestion = new ConfirmationQuestion('Add position [y, n](y): ', true);
         $pos = 1;
@@ -100,6 +108,7 @@ class CreateInvoice extends Command
 
     protected function askDetails(InputInterface $input, OutputInterface $output, array $details): array
     {
+        /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
         foreach ($details as $property => $defaultValue) {
             $question =  sprintf(

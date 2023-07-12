@@ -15,6 +15,7 @@ use Buepro\Bexio\Api\Client;
 use Buepro\Bexio\Helper\InitializationTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -77,8 +78,11 @@ class ApiService
 
     protected function getRedirectUrl(ServerRequestInterface $request): string
     {
-        if (($urlSegmentChallenge = $this->authConfig['urlSegmentChallenge'] ?? '') !== '') {
-            return rtrim($request->getAttribute('normalizedParams')->getRequestHost(), '/')
+        if (
+            ($urlSegmentChallenge = $this->authConfig['urlSegmentChallenge'] ?? '') !== '' &&
+            ($normalizedParams = $request->getAttribute('normalizedParams')) instanceof NormalizedParams
+        ) {
+            return rtrim($normalizedParams->getRequestHost(), '/')
                 . '/bexio-auth-' . $urlSegmentChallenge;
         }
         return '';

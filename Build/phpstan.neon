@@ -9,6 +9,11 @@ parameters:
 	level: max
 	checkMissingIterableValueType: false
 	reportUnmatchedIgnoredErrors: false
+	checkGenericClassInNonGenericObjectType: false
 
 	paths:
-	- %currentWorkingDirectory%/Classes/
+		- %currentWorkingDirectory%/Classes/
+
+	ignoreErrors:
+		- "#^Variable method call on#"
+		- "#^Variable property access on#"

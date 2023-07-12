@@ -14,6 +14,7 @@ namespace Buepro\Bexio\Command\Other;
 use Buepro\Bexio\Service\ApiService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -69,23 +70,31 @@ Without this option no arguments will be passed to the method.'
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-        $methodArguments = $this->getMethodArguments($input, $output);
-        $io->writeln("\nQuerying the endpoint...");
         try {
-            $site = GeneralUtility::makeInstance(SiteFinder::class)
-                ->getSiteByIdentifier((string)$input->getArgument('site'));
+            $io = new SymfonyStyle($input, $output);
+            $methodArguments = $this->getMethodArguments($input, $output);
+            $io->writeln("\nQuerying the endpoint...");
+            /** @var string $siteIdentifier */
+            $siteIdentifier = $input->getArgument('site');
+            $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByIdentifier($siteIdentifier);
             $client = GeneralUtility::makeInstance(ApiService::class)->initialize($site)->getClient();
-            $resourceClass = '\\Buepro\\Bexio\\Api\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
-            if (!class_exists($resourceClass)) {
-                $resourceClass = '\\Bexio\\Resource\\' . ucfirst((string)$input->getArgument('resource'));
+            if (
+                !is_string($resource = $input->getArgument('resource')) ||
+                (
+                    !class_exists($resourceClass = '\\Buepro\\Bexio\\Api\\Resource\\' . ucfirst($resource)) &&
+                    !class_exists($resourceClass = '\\Bexio\\Resource\\' . ucfirst($resource))
+                ) ||
+                !class_exists($resourceClass) ||
+                !is_string($method = $input->getArgument('method')) ||
+                !method_exists($resourceClass, $method)
+            ) {
+                throw new \InvalidArgumentException('The requested method is not available', 1689141554);
             }
-            $method = (string)$input->getArgument('method');
             $result = (new $resourceClass($client))->$method(...$methodArguments);
             if ($input->getOption('raw') === false) {
                 $result = json_encode($result, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR);
             }
-            if (($file = $input->getOption('file')) !== null) {
+            if (is_string($file = $input->getOption('file'))) {
                 $this->writeResultToFile($result, $file);
                 $io->writeln('Response written to file "' . $file . '"');
                 return Command::SUCCESS;
@@ -106,10 +115,14 @@ Without this option no arguments will be passed to the method.'
     {
         $args = [];
         if ($input->getOption('with-arguments') !== false) {
+            /** @var QuestionHelper $helper */
             $helper = $this->getHelper('question');
             $question = new Question("Arguments (one per line, continue with Ctrl-D on Linux, Ctrl-Z on Windows):\n");
             $question->setMultiline(true);
             $args = $helper->ask($input, $output, $question);
+            if (!is_string($args)) {
+                throw new \InvalidArgumentException('The input arguments are not correct', 1689141128);
+            }
             $args = GeneralUtility::trimExplode("\n", $args, true);
             $args = array_map(static fn ($arg) => \json_decode($arg, true), $args);
         }

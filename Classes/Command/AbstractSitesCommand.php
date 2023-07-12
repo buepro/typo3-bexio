@@ -65,13 +65,11 @@ included.'
             $io->writeln('<error>No site available.</error>');
             return null;
         }
-        if (($siteOption = $input->getOption('site')) !== null) {
-            $sites = [];
+        if (is_string($siteIdentifier = $input->getOption('site'))) {
             try {
-                $site = $siteFinder->getSiteByIdentifier($siteOption);
-                $sites[] = $site;
+                $sites = [$siteFinder->getSiteByIdentifier($siteIdentifier)];
             } catch (\Exception $e) {
-                $io->writeln('<error>The site "' . $siteOption . '" is not available.</error>');
+                $io->writeln('<error>The site "' . $siteIdentifier . '" is not available.</error>');
                 return null;
             }
         }

@@ -35,11 +35,15 @@ class CreateInvoice extends AbstractTask implements TaskInterface
         $this->assertInitialized();
         $invoiceResource = new Invoice($this->apiClient);
         $response = $invoiceResource->createInvoice($this->invoiceData);
+        if (!($response instanceof \stdClass)) {
+            return [];
+        }
         /** @extensionScannerIgnoreLine */
         $invoiceId = $response->id;
         $invoiceResource->issueInvoice($invoiceId);
         $response = $invoiceResource->getInvoice($invoiceId);
-        return json_decode((string)json_encode($response), true);
+        $result = json_decode((string)json_encode($response), true);
+        return is_array($result) ? $result : [];
     }
 
     protected function setUserData(int $userUid): self

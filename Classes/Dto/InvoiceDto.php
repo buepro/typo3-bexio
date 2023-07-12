@@ -73,7 +73,11 @@ class InvoiceDto
             self::$typecastMap[$remoteProperty] = $type;
         }
         if (self::$typecastMap[$remoteProperty] === \DateTime::class) {
-            $value = $value === null ? (new \DateTime())->setTimestamp(0) : new \DateTime($value);
+            if (is_string($value)) {
+                $value = new \DateTime($value);
+            } else {
+                $value = (new \DateTime())->setTimestamp(0);
+            }
             if ($remoteProperty === 'is_valid_to') {
                 $value->setTime(23, 59, 59);
             }
