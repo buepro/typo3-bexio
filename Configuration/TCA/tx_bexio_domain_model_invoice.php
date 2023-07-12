@@ -22,6 +22,9 @@ return [
         'searchFields' => 'title, document_nr, total, reference',
         'default_sortby' => 'id desc',
         'iconfile' => 'EXT:bexio/Resources/Public/Icons/domain-model-invoice.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'palettes' => [
         'header' => [
@@ -66,6 +69,10 @@ return [
                 'maxitems' => 1,
                 'appearance' => [
                     'collapseAll' => 1,
+                ],
+                'behaviour' => [
+                    'disableMovingChildrenWithParent' => true,
+                    'enableCascadingDelete' => false,
                 ],
             ],
         ],
