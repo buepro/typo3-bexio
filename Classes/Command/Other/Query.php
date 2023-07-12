@@ -70,8 +70,8 @@ Without this option no arguments will be passed to the method.'
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $io = new SymfonyStyle($input, $output);
         try {
-            $io = new SymfonyStyle($input, $output);
             $methodArguments = $this->getMethodArguments($input, $output);
             $io->writeln("\nQuerying the endpoint...");
             /** @var string $siteIdentifier */

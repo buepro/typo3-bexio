@@ -11,6 +11,7 @@ namespace Buepro\Bexio\Command\Invoice;
 
 use Buepro\Bexio\Command\AbstractSitesCommand;
 use Buepro\Bexio\Task\Invoice\UpdateInvoices as UpdateInvoicesTask;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -50,15 +51,21 @@ emitted for invoices that were were not available in
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $io->writeln('Updating local invoices...');
-        $this->options['include-paid'] = $input->getOption('include-paid');
-        if (
-            is_string($from = $input->getOption('from')) &&
-            is_int($timestamp = strtotime($from))
-        ) {
-            $this->options['from'] = (new \DateTime())->setTimestamp($timestamp);
+        try {
+            $io->writeln('Updating local invoices...');
+            $this->options['include-paid'] = $input->getOption('include-paid');
+            if (
+                is_string($from = $input->getOption('from')) &&
+                is_int($timestamp = strtotime($from))
+            ) {
+                $this->options['from'] = (new \DateTime())->setTimestamp($timestamp);
+            }
+            return $this->processSites($input, $output);
+        } catch (\Exception $e) {
+            /** @extensionScannerIgnoreLine */
+            $io->error($e->getMessage());
+            return Command::FAILURE;
         }
-        return $this->processSites($input, $output);
     }
 
     protected function processSite(Site $site, SymfonyStyle $io): void

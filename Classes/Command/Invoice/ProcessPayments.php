@@ -11,6 +11,7 @@ namespace Buepro\Bexio\Command\Invoice;
 
 use Buepro\Bexio\Command\AbstractSitesCommand;
 use Buepro\Bexio\Task\Invoice\ProcessPayments as ProcessPaymentsTask;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -32,8 +33,14 @@ assigned yet by dispatching an event.'
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $io->writeln('Processing invoice payments...');
-        return $this->processSites($input, $output);
+        try {
+            $io->writeln('Processing invoice payments...');
+            return $this->processSites($input, $output);
+        } catch (\Exception $e) {
+            /** @extensionScannerIgnoreLine */
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
     }
 
     protected function processSite(Site $site, SymfonyStyle $io): void

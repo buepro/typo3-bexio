@@ -13,6 +13,7 @@ namespace Buepro\Bexio\Command\User;
 
 use Buepro\Bexio\Command\AbstractSitesCommand;
 use Buepro\Bexio\Task\User\UpdateUsers as UpdateUsersTask;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,13 +59,19 @@ linked bexio contact.'
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $io->writeln('Updating local frontend users...');
-        $this->options = [
-            UpdateUsersTask::OPTION_CREATE => (bool)$input->getOption('create'),
-            UpdateUsersTask::OPTION_LINK => (bool)$input->getOption('link'),
-            UpdateUsersTask::OPTION_OVERWRITE => (bool)$input->getOption('overwrite'),
-        ];
-        return $this->processSites($input, $output);
+        try {
+            $io->writeln('Updating local frontend users...');
+            $this->options = [
+                UpdateUsersTask::OPTION_CREATE => (bool)$input->getOption('create'),
+                UpdateUsersTask::OPTION_LINK => (bool)$input->getOption('link'),
+                UpdateUsersTask::OPTION_OVERWRITE => (bool)$input->getOption('overwrite'),
+            ];
+            return $this->processSites($input, $output);
+        } catch (\Exception $e) {
+            /** @extensionScannerIgnoreLine */
+            $io->error($e->getMessage());
+            return Command::FAILURE;
+        }
     }
 
     protected function processSite(Site $site, SymfonyStyle $io): void

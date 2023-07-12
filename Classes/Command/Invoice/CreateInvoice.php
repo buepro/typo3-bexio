@@ -50,8 +50,8 @@ class CreateInvoice extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $io = new SymfonyStyle($input, $output);
         try {
-            $io = new SymfonyStyle($input, $output);
             $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
             /** @var string $siteIdentifier */
             $siteIdentifier = $input->getArgument('site');

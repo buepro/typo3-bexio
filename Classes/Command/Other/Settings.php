@@ -53,8 +53,8 @@ taxes and users.'
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $io->writeln('Getting bexio settings...');
         try {
+            $io->writeln('Getting bexio settings...');
             $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
             /** @var string $siteIdentifier */
             $siteIdentifier = $input->getArgument('site');
